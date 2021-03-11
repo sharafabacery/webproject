@@ -113,10 +113,13 @@ public function show_profile(){
   $query_obj->bind_param("i",$this->id);
   
   if ($query_obj->execute()) {
-      return true;
-  }else{
-      return false;
-  }
+    $data=$query_obj->get_result();
+    
+    return $data->fetch_assoc();
+
+}else{
+    return false;
+}
 
 
 

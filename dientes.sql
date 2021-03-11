@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2021 at 02:52 AM
+-- Generation Time: Mar 11, 2021 at 07:42 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -91,7 +91,9 @@ CREATE TABLE `medicalhistory` (
   `doc_id` int(11) NOT NULL,
   `title` text NOT NULL,
   `description` text NOT NULL,
-  `link_model` text NOT NULL
+  `link_model` text NOT NULL,
+  `med_id` int(11) NOT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -153,6 +155,7 @@ ALTER TABLE `doctor`
 -- Indexes for table `medicalhistory`
 --
 ALTER TABLE `medicalhistory`
+  ADD PRIMARY KEY (`med_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `doc_history_id` (`doc_id`);
 
@@ -192,6 +195,12 @@ ALTER TABLE `clinic`
 --
 ALTER TABLE `doctor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `medicalhistory`
+--
+ALTER TABLE `medicalhistory`
+  MODIFY `med_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`

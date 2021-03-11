@@ -225,7 +225,10 @@ class Users{
         $query_obj->bind_param("i",$this->id);
         
         if ($query_obj->execute()) {
-            return true;
+            $data=$query_obj->get_result();
+            
+            return $data->fetch_assoc();
+      
         }else{
             return false;
         }
