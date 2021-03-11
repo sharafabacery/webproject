@@ -39,3 +39,5 @@ view all medical History<br>
 clinic:<br>
 crud clinic <br>
 
+how to use 3dmodel<br>
+
