@@ -1,28 +1,28 @@
-Done:
+Done:<br>
 
-userclass:
-    register
-    login
-    search_all doctor
-    search_comination
-    show_appotiment
-    book_appotiment
-    1.start in forget password feature
-    get_id_by_email
-    2. add token after get id from user
-    add_token
-    3. last stip edit password for 
-    edit_password
-    show_profile
-    update_profile
-
-doctorclass:
-    register_doctor
-    complete_register_doctor
-    login
-    show_profile
-    add_clinic
-    add_appotiment
-    get_id_by_email
-    add_token
-    edit_password
+userclass:<br>
+    register<br>
+    login<br>
+    search_all doctor<br>
+    search_comination<br>
+    show_appotiment<br>
+    book_appotiment<br>
+    1.start in forget password feature<br>
+    get_id_by_email<br>
+    2. add token after get id from user<br>
+    add_token<br>
+    3. last stip edit password for<br> 
+    edit_password<br>
+    show_profile<br>
+    update_profile<br>
+<br>
+doctorclass:<br>
+    register_doctor<br>
+    complete_register_doctor<br>
+    login<br>
+    show_profile<br>
+    add_clinic<br>
+    add_appotiment<br>
+    get_id_by_email<br>
+    add_token<br>
+    edit_password<br>
