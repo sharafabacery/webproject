@@ -26,3 +26,16 @@ doctorclass:<br>
     get_id_by_email<br>
     add_token<br>
     edit_password<br>
+<br>
+<br>
+Not Done:<br>
+Make rating for doctor(userclass)<br>
+Medical History class:<br>
+Add medical History<br>
+edit medical History<br>
+view Medical History<br>
+view all medical History<br>
+
+clinic:<br>
+crud clinic <br>
+
