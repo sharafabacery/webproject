@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-    
-<head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Doccure - Profile</title>
-		
-        <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
-		
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		
-        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-		
-        <link rel="stylesheet" href="assets/css/feathericon.min.css">
-		
-        <link rel="stylesheet" href="assets/css/style.css">
-		
-    </head>
+<?php require_once("../header_footer/header.php")?>
     <body>
 	
         <div class="main-wrapper">
@@ -360,21 +342,4 @@
 		
         </div>
 		<!-- /Main Wrapper -->
-		
-		<!-- jQuery -->
-        <script src="assets/js/jquery-3.2.1.min.js"></script>
-		
-		<!-- Bootstrap Core JS -->
-        <script src="assets/js/popper.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-		
-		<!-- Slimscroll JS -->
-        <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-		
-		<!-- Custom JS -->
-		<script  src="assets/js/script.js"></script>
-		
-    </body>
-
-<!-- Mirrored from dreamguys.co.in/demo/doccure/admin/profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Nov 2019 04:12:46 GMT -->
-</html>
+		<?php require_once("../header_footer/footer.php")?>
