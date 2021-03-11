@@ -15,3 +15,14 @@ userclass:
     edit_password
     show_profile
     update_profile
+
+doctorclass:
+    register_doctor
+    complete_register_doctor
+    login
+    show_profile
+    add_clinic
+    add_appotiment
+    get_id_by_email
+    add_token
+    edit_password
