@@ -11,13 +11,13 @@
                             <span></span>
                         </span>
                     </a>
-                    <a href="index-2.html" class="navbar-brand logo">
+                    <a href="index.php" class="navbar-brand logo">
                         <img src="./img/logo1.jpg" width="80px" class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="index-2.html" class="menu-logo">
+                        <a href="index.php" class="menu-logo">
                             <img src="./img/logo1.jpg" class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">

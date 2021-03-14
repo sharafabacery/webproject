@@ -6,10 +6,10 @@
             <div class="header">
 			
                 <div class="header-left">
-                    <a href="index.html" class="logo">
+                    <a href="index.php" class="logo">
 						<img src="assets/img/logo.png" alt="Logo">
 					</a>
-					<a href="index.html" class="logo logo-small">
+					<a href="index.php" class="logo logo-small">
 						<img src="assets/img/logo-small.png" alt="Logo" width="30" height="30">
 					</a>
                 </div>
@@ -37,7 +37,7 @@
 								<span>Main</span>
 							</li>
 							<li class="active"> 
-								<a href="index.html"><i class="fe fe-home"></i> <span>Dashboard</span></a>
+								<a href="index.php"><i class="fe fe-home"></i> <span>Dashboard</span></a>
 							</li>
 							<li> 
 								<a href="appointment-list.html"><i class="fe fe-layout"></i> <span>Appointments</span></a>

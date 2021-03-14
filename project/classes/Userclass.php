@@ -42,11 +42,12 @@ class Users{
         $this->phonenumber=htmlspecialchars(strip_tags($this->phonenumber));
         $this->type=htmlspecialchars(strip_tags($this->type));
        
-        $user_obj->bind_param("sssssss",$this->username,$this->email,$this->password,$this->gender,$this->dateofbirth,$this->phonenumber,$this->type);
+        $user_obj->bind_param("sssssss",$this->name,$this->email,$this->password,$this->gender,$this->dateofbirth,$this->phonenumber,$this->type);
        
         if ($user_obj->execute()) {
             return true;
         }else{
+            print_r($user_obj);
             return false;
         }
 

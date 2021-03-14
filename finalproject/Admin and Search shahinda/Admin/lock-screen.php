@@ -17,7 +17,7 @@
 								</div>
 								
 								<!-- Form -->
-								<form action="https://dreamguys.co.in/demo/doccure/admin/index.html">
+								<form action="https://dreamguys.co.in/demo/doccure/admin/index.php">
 									<div class="form-group">
 										<input class="form-control" type="text" placeholder="Password">
 									</div>

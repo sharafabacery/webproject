@@ -1,4 +1,42 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/Userclass.php")?>
+<?php require 'vendor/autoload.php'; use GuzzleHttp\Psr7\Request;?>
+
+
+
+
+<?php
+if($_SERVER['REQUEST_METHOD']=="POST"){
+    //echo "ok";
+    $db=new Database();
+    $user=new Users($db->connect());
+
+    $user->name=$_POST['Name'];
+    $user->email=$_POST['Email'];
+    $user->phonenumber=$_POST['MobileNumber'];
+    $user->password=$_POST['Password'];
+    $user->dateofbirth=strval($_POST['date']);
+    $user->gender=$_POST['radio'];
+    $check=$user->register();
+    if($check){
+        
+        $client = new \GuzzleHttp\Client();
+        //http://localhost/webproject/
+        //welcome patient
+        $wep='https://smsmisr.com/api/webapi/?username=FHV9ce5E&password=4OLWygYhxw&language=1&sender=Offers&mobile='.$user->phonenumber.'&message=welcome to app';
+        $response = $client->request('POST', $wep);
+        if($response->getStatusCode()==200){
+            echo "you can now login "; // 200
+        }
+        
+        
+    }else{
+        echo "not ok";
+    }
+    
+}
+?>
 <body>
     <div class="main-wrapper">
     
@@ -13,13 +51,13 @@
                             <span></span>
                         </span>
                     </a>
-                    <a href="index-2.html" class="navbar-brand logo">
+                    <a href="index.php" class="navbar-brand logo">
                         <img src="./img/logo1.jpg" width="80px" class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="index-2.html" class="menu-logo">
+                        <a href="index.php" class="menu-logo">
                             <img src="./img/logo1.jpg" class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -37,9 +75,9 @@
                             <p class="contact-info-header"> +19566</p>
                         </div>
                     </li>
-                
+                    <?php?>
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html">login / Signup </a>
+                        <a class="nav-link header-login" href="login.php">login / Signup </a>
                     </li>
                 </ul>
             </nav>
@@ -58,25 +96,29 @@
                                 </div>
                                 <div class="col-md-12 col-lg-6 login-right">
                                     <div class="login-header">
-                                        <h3>Patient Register <a href="./registerdoctor.html">Are you a Doctor?</a></h3>
+                                        <h3>Patient Register <a href="./registerdoctor.php">Are you a Doctor?</a></h3>
                                     </div>
                                   
-                                    <form >
+                                    <form method="POST" action="register.php">
                                         <div class="form-group form-focus">
-                                            <input type="text" class="form-control floating">
-                                            <label class="focus-label">Name</label>
+                                            <input type="text" class="form-control floating" name="Name" required>
+                                            <label class="focus-label" >Name</label>
                                         </div>
                                         <div class="form-group form-focus">
-                                            <input type="text" class="form-control floating">
+                                            <input type="text" class="form-control floating" name="Email" required>
                                             <label class="focus-label">Email</label>
                                         </div>
                                         <div class="form-group form-focus">
-                                            <input type="text" class="form-control floating">
+                                            <input type="text" class="form-control floating" name="MobileNumber" required>
                                             <label class="focus-label">Mobile Number</label>
                                         </div>
                                         <div class="form-group form-focus">
-                                            <input type="password" class="form-control floating">
+                                            <input type="password" class="form-control floating"name="Password" required>
                                             <label class="focus-label">Create Password</label>
+                                        </div>
+                                        <div class="form-group form-focus">
+                                            <input type="date" class="form-control floating"name="date" required>
+                                            <label class="focus-label">Date Of Birth</label>
                                         </div>
                                         <div class="form-group form-focus">
                                         
@@ -84,7 +126,7 @@
                                             <input type="radio"  name="radio"> Female
                                         </div>	
                                         <div class="text-right">
-                                            <a class="forgot-link" href="login.html">Already have an account?</a>
+                                            <a class="forgot-link" href="login.php">Already have an account?</a>
                                         </div>
                                         <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Signup</button>
                                 

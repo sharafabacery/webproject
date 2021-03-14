@@ -14,5 +14,5 @@
     <link rel="stylesheet" href="./css/indes.css">
     
 </head>
-
-
+<?php session_start();?>
+<?php //require_once('checkrorsessions.php')?>

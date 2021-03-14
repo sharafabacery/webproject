@@ -14,13 +14,13 @@
                             <span></span>
                         </span>
                     </a>
-                    <a href="index.html" class="navbar-brand logo">
+                    <a href="index.php" class="navbar-brand logo">
                         <img src="./img/logo1.jpg" width="80px" class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="index.html" class="menu-logo">
+                        <a href="index.php" class="menu-logo">
                             <img src="./img/logo1.jpg" class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -31,7 +31,18 @@
                 <ul class="nav header-navbar-rht">
                 
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html">login / Signup </a>
+                        <?php
+                        if(isset($_SESSION['username'])){
+                            if($_SESSION['username']==""){
+                                echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                            }else{
+                                echo " <a class='nav-link header-login' href=''>".$_SESSION['username']. "</a>";
+                                echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                            }
+                           
+                        }
+                        ?>
+                       
                     </li>
                 </ul>
             </nav>
@@ -50,14 +61,14 @@
                             <div class="form-group search-spec">
 
                                 <select  class="form-control" placeholder="">
-                                    <option value="saab">Prosthodontics </option>
-                                    <option value="opel">Oral surgery</option>
-                                    <option value="audi">Maxillofacial surgery</option>
-                                    <option value="saab">Restorative dentistry </option>
-                                    <option value="opel">Endodontic </option>
-                                    <option value="audi">Pedodontics</option>
-                                    <option value="saab">Orthodontics</option>
-                                    <option value="opel">Periodontics</option>
+                                    <option value="Prosthodontics">Prosthodontics </option>
+                                    <option value="Oral surgery">Oral surgery</option>
+                                    <option value="Maxillofacial surgery">Maxillofacial surgery</option>
+                                    <option value="Restorative dentistry">Restorative dentistry </option>
+                                    <option value="Endodontic">Endodontic </option>
+                                    <option value="Pedodontics">Pedodontics</option>
+                                    <option value="Orthodontics">Orthodontics</option>
+                                    <option value="Periodontics">Periodontics</option>
                                 
                                 </select>
                                 <span class="form-text">Select Specialities</span>

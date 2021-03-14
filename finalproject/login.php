@@ -1,4 +1,34 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/Userclass.php")?>
+<?php
+if($_SERVER['REQUEST_METHOD']=="POST"){
+    //echo "ok";
+    $db=new Database();
+    $user=new Users($db->connect());
+
+
+    $user->email=$_POST['Email'];
+    $user->password=$_POST['Password'];
+    $check=$user->login();
+    if($check){
+        
+        if($check['password']==$user->password){
+            echo "login successfully";
+            $_SESSION['username']=$check['username'];
+            $_SESSION['id']=$check['id'];
+            header("Location: /webproject/finalproject");
+        }else{
+            echo "cant login _2"; 
+        }
+        
+        
+    }else{
+        echo "cant login";
+    }
+    
+}
+?>
 <body>
     <div class="main-wrapper">
     
@@ -12,13 +42,13 @@
                             <span></span>
                         </span>
                     </a>
-                    <a href="index-2.html" class="navbar-brand logo">
+                    <a href="index.php" class="navbar-brand logo">
                         <img src="./img/logo1.jpg" width="80px" class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="index-2.html" class="menu-logo">
+                        <a href="index.php" class="menu-logo">
                             <img src="./img/logo1.jpg" class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -38,7 +68,7 @@
                     </li>
                 
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html">login / Signup </a>
+                        <a class="nav-link header-login" href="login.php">login / Signup </a>
                     </li>
                 </ul>
             </nav>
@@ -59,13 +89,13 @@
                                     <div class="login-header">
                                         <h3>Login <span>Dientes</span></h3>
                                     </div>
-                                    <form action="https://dreamguys.co.in/demo/doccure/index.html">
+                                    <form action="login.php" method="POST">
                                         <div class="form-group form-focus">
-                                            <input type="email" class="form-control floating">
-                                            <label class="focus-label">Email Or Mobile</label>
+                                            <input type="email" class="form-control floating" name="Email">
+                                            <label class="focus-label">Email </label>
                                         </div>
                                         <div class="form-group form-focus">
-                                            <input type="password" class="form-control floating">
+                                            <input type="password" class="form-control floating" name="Password">
                                             <label class="focus-label">Password</label>
                                         </div>
                         

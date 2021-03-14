@@ -30,3 +30,4 @@
 			<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
     </head>
+	<?php session_start();?>
