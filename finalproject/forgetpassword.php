@@ -2,31 +2,27 @@
 <?php require_once("../project/config/database.php")?>
 <?php require_once("../project/classes/Userclass.php")?>
 <?php
-if($_SERVER['REQUEST_METHOD']=="POST"){
-    //echo "ok";
-    $db=new Database();
-    $user=new Users($db->connect());
-
-
-    $user->email=$_POST['Email'];
-    $user->password=$_POST['Password'];
-    $check=$user->login();
-    if($check){
-        
-        if($check['password']==$user->password){
-            echo "login successfully";
-            $_SESSION['username']=$check['username'];
-            $_SESSION['id']=$check['id'];
-            header("Location: /webproject/finalproject");
-        }else{
-            echo "cant login _2"; 
-        }
-        
-        
-    }else{
-        echo "cant login";
+if($_SERVER['REQUEST_METHOD']=="GET"){
+    
+    if(!isset($_GET['token'])){
+        header("Location: /webproject/finalproject/index.php");
+            
     }
     
+}
+if ($_SERVER['REQUEST_METHOD']=="POST") {
+    $db=new Database();
+    $user=new Users($db->connect());
+    $user->password=$_POST['password'];
+    $user->email=$_POST['Email'];
+    $user->token=$_GET['token'];
+   // echo $_GET['token'];
+    if($user->edit_password())
+    {
+        header("Location: /webproject/finalproject/login.php");
+    }else{
+        echo "cant update password";
+        }
 }
 ?>
 <body>
@@ -87,26 +83,23 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                 </div>
                                 <div class="col-md-12 col-lg-6 login-right">
                                     <div class="login-header">
-                                        <h3>Login <span>Dientes</span></h3>
+                                        <h3>change password </h3>
                                     </div>
-                                    <form action="login.php" method="POST">
+                                    <form action=<?php echo "forgetpassword.php?token=".$_GET["token"];?>  method="POST">
                                         <div class="form-group form-focus">
                                             <input type="email" class="form-control floating" name="Email">
                                             <label class="focus-label">Email </label>
                                         </div>
                                         <div class="form-group form-focus">
-                                            <input type="password" class="form-control floating" name="Password">
-                                            <label class="focus-label">Password</label>
+                                            <input type="password" class="form-control floating" name="password">
+                                            <label class="focus-label">Password </label>
                                         </div>
+                                       
                         
-                                        <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Login</button>
-                                        <div class="login-or">
-                                            <span class="or-line"></span>
-                                            <span class="span-or">or</span>
-                                        </div>
+                                        <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">confirm password</button>
+                                        
                                     
-                                        <div class="text-center dont-have ">Don’t have an account? <a  href="register.php">Register</a></div>
-                                        <div class="text-center dont-have ">forget password? <a  href="sendtoken.php">forget password??</a></div>
+      
                                     </form>
                                 </div>
                             </div>

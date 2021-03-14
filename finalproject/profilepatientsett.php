@@ -132,7 +132,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="./change-pass.html">
+                                            <a href="./change-pass.php">
                                                 <i class="fas fa-lock"></i>
                                                 <span>Change Password</span>
                                             </a>

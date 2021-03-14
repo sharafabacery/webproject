@@ -168,11 +168,11 @@ class Users{
     }
     //1.start in forget password feature
     public function get_id_by_email(){
-        $user_query="select id from ".$this->users_tbl." where email=?";
+        $user_query="select * from ".$this->users_tbl." where email=?";
         $user_obj=$this->conn->prepare($user_query);
         $this->email=htmlspecialchars(strip_tags($this->email));
 
-        $user_obj->bind_param("s",$this->id);
+        $user_obj->bind_param("s",$this->email);
        
         if ($user_obj->execute()) {
             $data=$user_obj->get_result();
@@ -204,7 +204,7 @@ class Users{
     }
     //3. last stip edit password for 
     public function edit_password(){
-        $update_query="update ".$this->users_tbl ." set  password=?   where token=? and email=? ";
+        $update_query="update ".$this->users_tbl ." set  password=?,token=''   where token=? and email=? ";
 
         $query_obj=$this->conn->prepare($update_query);
 
@@ -220,7 +220,23 @@ class Users{
             return false;
         }
     }
+    public function update_password(){
+        $update_query="update ".$this->users_tbl ." set  password=?   where  email=? ";
 
+        $query_obj=$this->conn->prepare($update_query);
+
+        $this->password=htmlspecialchars(strip_tags($this->password));
+        $this->email=htmlspecialchars(strip_tags($this->email));
+      
+
+        $query_obj->bind_param("ss",$this->password, $this->email);
+        
+        if ($query_obj->execute()&&$query_obj->affected_rows>0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function show_profile(){
         $get_user="select * from ".$this->users_tbl." where id=?";
         $query_obj=$this->conn->prepare($get_user);
