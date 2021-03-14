@@ -1,4 +1,38 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once('./header_footer/checkrorsessions.php')?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/Userclass.php")?>
+<?php
+    $db=new Database();
+    $user=new Users($db->connect());
+    $user->id=$_SESSION['id'];
+    $user_data=$user->show_profile();
+    if ($user_data==false) {
+       
+    }
+    //update_profile()
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+
+        //echo "ok";
+
+        $user->email=$_POST['email'];
+        $user->username=$_POST['username'];
+        $user->phonenumber=$_POST['phonenumber'];
+        $user->dateofbirth=$_POST['dateofbirth'];
+        $user->Country_city=$_POST['Country_city'];
+        $user->Blood_Group=$_POST['Blood_Group'];
+         $check=$user->update_profile();
+         if($check){
+            
+            header("Location: /webproject/finalproject/profilepatientsett.php");
+            
+            
+         }else{
+             echo "cant updated";
+         }
+    }
+
+    ?>
 <body>
     <div class="main-wrapper">
     
@@ -37,9 +71,17 @@
                         </div>
                     </li>
                 
-                    <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html">login / Signup </a>
-                    </li>
+                    <?php
+                        if(isset($_SESSION['username'])){
+                            if($_SESSION['username']==""){
+                                echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                            }else{
+                                echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['username']. "</a>";
+                                echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                            }
+                           
+                        }
+                        ?>
                 </ul>
             </nav>
         </header>
@@ -67,13 +109,13 @@
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
                                     <a href="#" class="booking-doc-img">
-                                        <img src="./img/patients/patient4.jpg" alt="User Image">
+                                        <img src="./img/patients/user.jpg" alt="User Image">
                                     </a>
                                     <div class="profile-det-info">
-                                        <h3>Salma Mahmoud</h3>
+                                        <h3><?php echo $user_data['username']?></h3>
                                         <div class="patient-details">
-                                            <h5><i class="fas fa-birthday-cake"></i> 22 June 1990 30</h5>
-                                            <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Alexandria , Egypt </h5>
+                                            <h5><i class="fas fa-birthday-cake"></i> <?php echo $user_data['dateofbirth']?></h5>
+                                            <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> <?php echo $user_data['Country_city']?> </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +126,7 @@
                                        
                                 
                                         <li class="active">
-                                            <a href="profile-settings.html">
+                                            <a href="patientprofile.php">
                                                 <i class="fas fa-user-cog"></i>
                                                 <span>Profile Settings</span>
                                             </a>
@@ -96,7 +138,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="./index.php">
+                                            <a href="logout.php">
                                                 <i class="fas fa-sign-out-alt"></i>
                                                 <span>Logout</span>
                                             </a>
@@ -114,84 +156,69 @@
                             <div class="card-body">
                                 
                                
-                                <form>
+                                <form action='profilepatientsett.php' method="POST">
                                     <div class="row form-row">
                                         <div class="col-12 col-md-12">
                                             <div class="form-group">
                                                 <div class="change-avatar">
                                                     <div class="profile-img">
-                                                        <img src="./img/patients/patient4.jpg" alt="User Image">
+                                                        <img src="./img/patients/user.jpg" alt="User Image">
                                                     </div>
-                                                    <div class="upload-img">
-                                                        <div class="change-photo-btn">
-                                                            <span><i class="fa fa-upload"></i> Upload Photo</span>
-                                                            <input type="file" class="upload">
-                                                        </div>
-                                                     
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" class="form-control"placeholder="Salma">
+                                                <label>Uername</label>
+                                                <input type="text" class="form-control" value='<?php echo $user_data['username']?>' name="username">
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" class="form-control"placeholder="Mahmoud">
-                                            </div>
-                                        </div>
+                                       
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
                                                 <label>Date of Birth</label>
                                                 <div class="cal-icon">
-                                                    <input type="text" class="form-control datetimepicker" value="22-06-1990">
+                                                    <input type="text" class="form-control datetimepicker" value='<?php echo $user_data['dateofbirth']?>' name="dateofbirth">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
                                                 <label>Blood Group</label>
-                                                <select class="form-control select">
-                                                    <option>A-</option>
-                                                    <option>A+</option>
-                                                    <option>B-</option>
-                                                    <option>B+</option>
-                                                    <option>AB-</option>
-                                                    <option>AB+</option>
-                                                    <option>O-</option>
-                                                    <option>O+</option>
+                                                <select class="form-control select" name="Blood_Group" >
+                                                <option value='<?php echo $user_data['Blood_Group']?>'><?php echo $user_data['Blood_Group']?></option>
+                                                    <option value="A-">A-</option>
+                                                    <option value="A+">A+</option>
+                                                    <option value="B-">B-</option>
+                                                    <option value="B+">B+</option>
+                                                    <option value="AB-">AB-</option>
+                                                    <option value="AB+">AB+</option>
+                                                    <option value="O-">O-</option>
+                                                    <option value="O+">O+</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
                                                 <label>Email ID</label>
-                                                <input type="email" class="form-control" placeholder="salma@example.com">
+                                                <input type="email" class="form-control" value='<?php echo $user_data['email']?>' name='email'>
                                             </div>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
                                                 <label>Mobile</label>
-                                                <input type="text" placeholder="+20 01006321208" class="form-control">
+                                                <input type="text" value='<?php echo $user_data['phonenumber']?>' class="form-control" name="phonenumber">
                                             </div>
                                         </div>
                                      
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
-                                                <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Egypt">
+                                                <label>Country/city</label>
+                                                <input type="text" class="form-control" value='<?php echo $user_data['Country_city']?>' name="Country_city">
                                             </div>
                                         </div>
-                                        <div class="col-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" class="form-control" placeholder="Alexnadria">
-                                            </div>
-                                        </div>
+                                        
                               
                                     </div>
                                     <div class="submit-section">
@@ -208,4 +235,4 @@
 
         </div>
         <br>
-        <?php require_once("./header_footer/footer.php")?>
+<?php require_once('./header_footer/footer.php');?>

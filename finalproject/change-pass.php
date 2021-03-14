@@ -69,7 +69,7 @@
 								<div class="widget-profile pro-widget-content">
 									<div class="profile-info-widget">
 										<a href="#" class="booking-doc-img">
-											<img src="./img/patients/patient4.jpg" alt="User Image">
+											<img src="./img/patients/user.jpg" alt="User Image">
 										</a>
 										<div class="profile-det-info">
 											<h3>Salma Mahmoud</h3>

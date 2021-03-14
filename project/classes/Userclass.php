@@ -16,6 +16,8 @@ class Users{
     public $price;
     public $payment_method;
     public $combine_array;
+    public $Country_city;
+    public $Blood_Group;
     public $id;
     private $conn;
     private $users_tbl;
@@ -183,7 +185,7 @@ class Users{
     }
     //2. add token after get id from user
     public function add_token(){
-        $update_query="update ".$this->table_name ." set  token=? where id=? ";
+        $update_query="update ".$this->users_tbl ." set  token=? where id=? ";
 
         $query_obj=$this->conn->prepare($update_query);
 
@@ -202,7 +204,7 @@ class Users{
     }
     //3. last stip edit password for 
     public function edit_password(){
-        $update_query="update ".$this->table_name ." set  password=?   where token=? and email=? ";
+        $update_query="update ".$this->users_tbl ." set  password=?   where token=? and email=? ";
 
         $query_obj=$this->conn->prepare($update_query);
 
@@ -220,7 +222,7 @@ class Users{
     }
 
     public function show_profile(){
-        $get_user="select * from ".$this->table_name." where id=?";
+        $get_user="select * from ".$this->users_tbl." where id=?";
         $query_obj=$this->conn->prepare($get_user);
         $this->id=htmlspecialchars(strip_tags($this->id));
         $query_obj->bind_param("i",$this->id);
@@ -237,21 +239,26 @@ class Users{
 
 
     }
+    // public $Country_city;
+//    public $Blood_Group;
+   
     public function update_profile(){
 
-        $update_query="update ".$this->table_name ." set  username=? ,email=? ,phonenumber=? ,password = ?,gender=?,dateofbirth=? where id=? ";
+        $update_query="update ".$this->users_tbl ." set  username=? ,email=? ,phonenumber=? ,dateofbirth=?,Country_city=?,Blood_Group=? where id=? ";
 
         $query_obj=$this->conn->prepare($update_query);
 
         $this->username=htmlspecialchars(strip_tags($this->username));
         $this->email=htmlspecialchars(strip_tags($this->email));
         $this->phonenumber=htmlspecialchars(strip_tags($this->phonenumber));
-        $this->password=htmlspecialchars(strip_tags($this->password));
-        $this->gender=htmlspecialchars(strip_tags($this->gender));
+      //  $this->password=htmlspecialchars(strip_tags($this->password));
+       // $this->gender=htmlspecialchars(strip_tags($this->gender));
         $this->dateofbirth=htmlspecialchars(strip_tags($this->dateofbirth));
+        $this->Country_city=htmlspecialchars(strip_tags($this->Country_city));
+        $this->Blood_Group=htmlspecialchars(strip_tags($this->Blood_Group));
         $this->id=htmlspecialchars(strip_tags($this->id));
 
-        $query_obj->bind_param("sssssssi",$this->username,$this->email,$this->phonenumber,$this->password,$this->gender,$this->dateofbirth,$this->id);
+        $query_obj->bind_param("ssssssi",$this->username,$this->email,$this->phonenumber,$this->dateofbirth,$this->Country_city,$this->Blood_Group,$this->id);
         
         if ($query_obj->execute()&&$query_obj->affected_rows>0) {
             return true;

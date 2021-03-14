@@ -1,4 +1,5 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once('./header_footer/checkrorsessions.php')?>
 <body>
     <div class="main-wrapper">
     
@@ -39,8 +40,18 @@
                     </li>
                 
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html">login / Signup </a>
-                    </li>
+                    <?php
+                        if(isset($_SESSION['username'])){
+                            if($_SESSION['username']==""){
+                                echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                            }else{
+                                echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['username']. "</a>";
+                                echo " <a class='nav-link header-login' href='profilepatientsett.php'>edit Data</a>";
+                                echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                            }
+                           
+                        }
+                        ?>  </li>
                 </ul>
             </nav>
         </header>
@@ -67,7 +78,7 @@
                         <div class="doctor-widget">
                             <div class="doc-info-left">
                                 <div class="doctor-img">
-                                    <img src="./img/patients/patient4.jpg   " class="img-fluid" alt="User Image">
+                                    <img src="./img/patients/user.jpg   " class="img-fluid" alt="User Image">
                                 </div>
                                 <div class="doc-info-cont">
                                     <h4 class="doc-name">Salma Mahmoud </h4>

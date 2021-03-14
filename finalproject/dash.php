@@ -288,7 +288,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient4.jpg" alt="User Image"></a>
+                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/user.jpg" alt="User Image"></a>
                                                                         <a href="patient-profile.html">Salma Mahmoud <span>#PT0004</span></a>
                                                                     </h2>
                                                                 </td>

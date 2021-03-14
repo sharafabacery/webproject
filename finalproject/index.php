@@ -36,7 +36,7 @@
                             if($_SESSION['username']==""){
                                 echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
                             }else{
-                                echo " <a class='nav-link header-login' href=''>".$_SESSION['username']. "</a>";
+                                echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['username']. "</a>";
                                 echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
                             }
                            
