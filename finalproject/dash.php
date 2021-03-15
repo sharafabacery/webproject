@@ -38,8 +38,37 @@
                         </li>
                     
                         <li class="nav-item">
-                            <a class="nav-link header-login" href="login.html">login / Signup </a>
-                        </li>
+                        <?php
+                        if(isset($_SESSION['value'])){
+                            if($_SESSION['value']==1){
+                                if(isset($_SESSION['username'])){
+                                    if($_SESSION['username']==""){
+                                        echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    }else{
+                                        echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['username']. "</a>";
+                                        echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                                    }
+                                      
+                                }
+                            }elseif($_SESSION['value']==0){
+                                if (isset($_SESSION['docname'])) {
+                                    if($_SESSION['docname']==""){
+                                        echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    }else{
+                                        echo " <a class='nav-link header-login' href='dash.php'>".$_SESSION['docname']. "</a>";
+                                        echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                                    }
+                                }
+                            }
+                            else{
+                                echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    
+                            }
+                        }
+                        
+                       
+                                             
+                        ?></li>
                     </ul>
                 </nav>
             </header>

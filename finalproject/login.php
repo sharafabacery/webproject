@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
             $_SESSION['id']=$check['id'];
             $_SESSION['value']=1;
             $_SESSION['doctor']==false;
-            header("Location: /webproject/finalproject");
+            header("Location: /webproject/finalproject/dash.php");
         }else{
             echo "cant login _2"; 
         }

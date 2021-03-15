@@ -48,7 +48,7 @@
                                     if($_SESSION['docname']==""){
                                         echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
                                     }else{
-                                        echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['docname']. "</a>";
+                                        echo " <a class='nav-link header-login' href='dash.php'>".$_SESSION['docname']. "</a>";
                                         echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
                                     }
                                 }
