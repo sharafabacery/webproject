@@ -1,4 +1,22 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/Userclass.php")?>
+<?php require_once("../project/classes/doctorclass.php")?>
+<?php
+if(isset($_GET['doc_id'])&&isset($_GET['check'])){
+    $db=new Database();
+	$user=new Users($db->connect());
+	$doc=new Doctors($db->connect());
+	$doc->id=$_GET['doc_id'];
+    $getDoc=$doc->show_profile();
+    $user->sid=$_GET['check'];
+    $getApp=$user->show_appotiment();
+
+
+}
+
+
+?>
 <body>
     <div class="main-wrapper">
     
@@ -39,8 +57,37 @@
                     </li>
                 
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html">login / Signup </a>
-                    </li>
+                    <?php
+                        if(isset($_SESSION['value'])){
+                            if($_SESSION['value']==1){
+                                if(isset($_SESSION['username'])){
+                                    if($_SESSION['username']==""){
+                                        echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    }else{
+                                        echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['username']. "</a>";
+                                        echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                                    }
+                                      
+                                }
+                            }elseif($_SESSION['value']==0){
+                                if (isset($_SESSION['docname'])) {
+                                    if($_SESSION['docname']==""){
+                                        echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    }else{
+                                        echo " <a class='nav-link header-login' href='dash.php'>".$_SESSION['docname']. "</a>";
+                                        echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                                    }
+                                }
+                            }
+                            else{
+                                echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    
+                            }
+                        }
+                        
+                       
+                                             
+                        ?> </li>
                 </ul>
             </nav>
         </header>
@@ -72,7 +119,7 @@
                                 <div class="success-cont">
                                     <i class="fas fa-check"></i>
                                     <h3>Appointment booked Successfully!</h3>
-                                    <p>Appointment booked with <strong>Dr. Ahmed Nagy </strong><br> on <strong>8 Jan 2021 10:00Am </strong></p>
+                                    <p>Appointment booked with <strong><?php echo $getDoc['docname'];?> </strong><br> on <strong><?php echo $getApp['day']."     ".$getApp['from_app'];?> </strong></p>
                                  
                                 </div>
                             </div>

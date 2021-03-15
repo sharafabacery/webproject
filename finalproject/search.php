@@ -6,7 +6,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 	$db=new Database();
     $user=new Users($db->connect());
     
-	if ($_POST['searchall']=='yes') {
+	if (isset($_POST['searchall'])&&$_POST['searchall']=='yes') {
 		$getalldoctors=$user->search_all();
 		
 	}else{
@@ -248,7 +248,8 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 											echo"</div>";
 											echo"<div class='clinic-booking'>";
 												echo"<a class='view-pro-btn' href='doctor-profile.php'>View Profile</a>";
-												echo"<a class='apt-btn' href='booking.php'>Book Appointment</a>";
+												$link="booking.php?doc_id=".$data['id'];
+												echo"<a class='apt-btn' href=".$link.">Book Appointment</a>";
 											echo"</div>";
 										echo"</div>";
 									echo"</div>";

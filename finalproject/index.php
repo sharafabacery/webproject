@@ -101,7 +101,7 @@
 
                                 <select  class="form-control" placeholder="" name="city">
   
-                                    <option value="Alexandria" >Alexandria </option>
+                                    <option value="Alexandria" selected>Alexandria </option>
                                     <option value="Cairo">Cairo</option>
                                     <option value="Giza">Giza </option>
                                
@@ -115,7 +115,7 @@
 
                                     <select  class="form-control" placeholder="" name="area">
                                     
-                                        <option value="Sporting" >Sporting </option>
+                                        <option value="Sporting" selected>Sporting </option>
                                         <option value="Smouha">Smouha</option>
                                         <option value="Louran">Louran </option>
                                    

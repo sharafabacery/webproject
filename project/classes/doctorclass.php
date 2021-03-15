@@ -188,6 +188,42 @@ public function get_all_appotiment(){
       return false;
   }
 }
+public function get_all_appotiment_for_Booking(){
+  $user_query="select * from appotiment where doc_id=?";
+       
+  $user_obj=$this->conn->prepare($user_query);
+ 
+  $this->id=htmlspecialchars(strip_tags($this->id));
+ 
+  $user_obj->bind_param("i",$this->id);
+ 
+  if ($user_obj->execute()) {
+    $data=$user_obj->get_result();
+    
+    return $data;
+
+  }else{
+      return false;
+  }
+}
+public function get_one_reservation(){
+  $user_query="select * from appotiment where doc_id=?";
+       
+  $user_obj=$this->conn->prepare($user_query);
+ 
+  $this->id=htmlspecialchars(strip_tags($this->id));
+ 
+  $user_obj->bind_param("i",$this->id);
+ 
+  if ($user_obj->execute()) {
+    $data=$user_obj->get_result();
+    
+    return $data;
+
+  }else{
+      return false;
+  }
+}
 public function get_id_by_email(){
   $user_query="select * from ".$this->users_tbl." where email=?";
   $user_obj=$this->conn->prepare($user_query);

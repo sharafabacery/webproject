@@ -1,4 +1,19 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/doctorclass.php")?>
+<?php
+if(isset($_GET['doc_id'])){
+$db=new Database();
+$doc=new Doctors($db->connect());
+$doc->id=$_GET['doc_id'];
+$doc_data=$doc->show_profile();
+print_r($doc_data);
+$doc_appotiment=$doc->get_all_appotiment_for_Booking();//fetch
+}else{
+    header("Location: /webproject/finalproject");
+}
+
+?>
 <body>
     <div class="main-wrapper">
     
@@ -39,8 +54,40 @@
                     </li>
                 
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html">login / Signup </a>
-                    </li>
+                    <?php
+                        if(isset($_SESSION['value'])){
+                            if($_SESSION['value']==1){
+                                if(isset($_SESSION['username'])){
+                                    if($_SESSION['username']==""){
+                                        echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    }else{
+                                        echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['username']. "</a>";
+                                        echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                                    }
+                                      
+                                }
+                            }elseif($_SESSION['value']==0){
+                                if (isset($_SESSION['docname'])) {
+                                    if($_SESSION['docname']==""){
+                                        echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    }else{
+                                        echo " <a class='nav-link header-login' href='dash.php'>".$_SESSION['docname']. "</a>";
+                                        echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                                    }
+                                }
+                            }
+                            else{
+                                echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                    
+                            }
+                        }else{
+                            echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                
+                        }
+                        
+                       
+                                             
+                        ?> </li>
                 </ul>
             </nav>
         </header>
@@ -72,10 +119,10 @@
                             <div class="card-body">
                                 <div class="booking-doc-info">
                                     <a href="" class="booking-doc-img">
-                                        <img src="./img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                        <img src="<?php echo $doc_data['image'];?>" alt="User Image">
                                     </a>
                                     <div class="booking-info">
-                                        <h4><a href="">Dr.Ahmed Nagy</a></h4>
+                                        <h4><a href=""><?php echo $doc_data['docname'];?></a></h4>
                                         <div class="rating">
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
@@ -84,7 +131,7 @@
                                             <i class="fas fa-star"></i>
                                             <span class="d-inline-block average-rating">35</span>
                                         </div>
-                                        <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> Alexandria,    Egypt</p>
+                                        <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> <?php echo $doc_data['location_clinic']; ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -102,34 +149,14 @@
                                                         <i class="fa fa-chevron-left"></i>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <span>Mon</span>
-                                                    <span class="slot-date">4 Jan <small class="slot-year">2021</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Tue</span>
-                                                    <span class="slot-date">5 Jan <small class="slot-year">2021</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Wed</span>
-                                                    <span class="slot-date">6 Jan <small class="slot-year">2021</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Thu</span>
-                                                    <span class="slot-date">7 Jan <small class="slot-year">2021</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Fri</span>
-                                                    <span class="slot-date">8 Jan <small class="slot-year">2021</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Sat</span>
-                                                    <span class="slot-date">9 Jan <small class="slot-year">2021</small></span>
-                                                </li>
-                                                <li>
-                                                    <span>Sun</span>
-                                                    <span class="slot-date">10 Jan <small class="slot-year">2021</small></span>
-                                                </li>
+                                                <?php
+                                                while($data=$doc_appotiment->fetch_assoc()){
+                                                    echo"<li>";
+                                                    echo"<span>".$data['day']."</span>";
+                                                echo"</li>";
+                                                
+                                                ?>
+
                                                 <li class="right-arrow">
                                                     <a href="#">
                                                         <i class="fa fa-chevron-right"></i>
@@ -146,83 +173,29 @@
                                     <div class="col-md-12">
                                         <div class="time-slot">
                                             <ul class="clearfix">
-                                                <li>
-                                                    <a class="timing order" href="#">
-                                                        <span class="order">9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span c>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing unorder" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing unorder" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing unorder" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing unorder" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing selected" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing unorder" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="timing" href="#">
-                                                        <span>9:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing unorder" href="#">
-                                                        <span>10:00</span> <span>AM</span>
-                                                    </a>
-                                                    <a class="timing" href="#">
-                                                        <span>11:00</span> <span>AM</span>
-                                                    </a>
-                                                </li>
+                                            <?php
+                                            
+                                            
+echo "<li>";
+                                                echo    "<a class='timing order' href='#'>";
+                                                echo        "<span class='order'>".$data['from_app']."                  </span>"; 
+                                                echo    "</a>";
+                                                echo    "<a class='timing' href='#'>";
+                                                echo        "<span >".$data['to_app']."</span>"; 
+                                                echo    "</a>";
+                                                echo    "<a class='timing' href='#'>";
+                                                echo        "<span>  <br>".$doc_data['waiting_time']." waiting_time</span>"; 
+                                                echo    "</a>";
+                                                echo "</li>";
+                                            }
+                                            ?>
+                                                
+
+
+
+                                              
+                                            
+                                              
                                             </ul>
                                         </div>
                                    
@@ -234,7 +207,7 @@
                         </div>
                         <br>
                         <div class="submit-section proceed-btn text-right">
-                            <a href="checkout.html" class="btn btn-primary submit-btn">Proceed to Pay</a>
+                            <a href="checkout.php?doc_id=<?php echo $_GET['doc_id'];?>" class="btn btn-primary submit-btn">Proceed to Pay</a>
                         </div>
                        
                         

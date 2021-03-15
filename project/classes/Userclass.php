@@ -19,6 +19,8 @@ class Users{
     public $Country_city;
     public $Blood_Group;
     public $id;
+    public $sid;
+    public $rid;
     private $conn;
     private $users_tbl;
     //private $projects_tbl;
@@ -126,11 +128,11 @@ class Users{
 
     }
     public function show_appotiment(){
-        $user_query="select * from doctor,appotiment where doc_id=id and id=?";
+        $user_query="select * from appotiment where  id =?";
         $user_obj=$this->conn->prepare($user_query);
-        $this->doc_id=htmlspecialchars(strip_tags($this->doc_id));
+        $this->sid=htmlspecialchars(strip_tags($this->sid));
 
-        $user_obj->bind_param("i",$this->doc_id);
+        $user_obj->bind_param("i",$this->sid);
        
         if ($user_obj->execute()) {
             $data=$user_obj->get_result();
@@ -142,19 +144,37 @@ class Users{
         }
 
     }
+    public function get_one_reservation(){
+        $user_query="select * from reservation where id=?";
+             
+        $user_obj=$this->conn->prepare($user_query);
+       
+        $this->rid=htmlspecialchars(strip_tags($this->rid));
+       
+        $user_obj->bind_param("i",$this->rid);
+       
+        if ($user_obj->execute()) {
+          $data=$user_obj->get_result();
+          
+          return $data;
+      
+        }else{
+            return false;
+        }
+      }
     //
     public function book_appotiment(){
         $this->id=htmlspecialchars(strip_tags($this->id));
         $this->doc_id=htmlspecialchars(strip_tags($this->doc_id));
-        $this->app_id=htmlspecialchars(strip_tags($this->email));
-        $this->price=htmlspecialchars(strip_tags($this->email));
+        $this->app_id=htmlspecialchars(strip_tags($this->app_id));
+       // $this->price=htmlspecialchars(strip_tags($this->email));
         $this->payment_method=htmlspecialchars(strip_tags($this->payment_method));
         
-        $user_query="insert into reservation (user_id,doc_id,appotiment_id,payment_method,price)  values(?,?,?,?,?)";
+        $user_query="insert into reservation (user_id,doc_id,appotiment_id,payment_method)  values(?,?,?,?)";
 
        
         $user_obj=$this->conn->prepare($user_query);
-        $user_obj->bind_param("iiisi",$this->id,$this->doc_id,$this->app_id,$this->price,$this->payment_method);
+        $user_obj->bind_param("iiis",$this->id,$this->doc_id,$this->app_id,$this->payment_method);
        
         if ($user_obj->execute()) {
             return true;
