@@ -10,6 +10,7 @@
     if ($user_data==false) {
        
     }
+    $_SESSION['username']=$user_data['username'];
     //update_profile()
     if($_SERVER['REQUEST_METHOD']=="POST"){
 
@@ -108,10 +109,13 @@
                         <div class="profile-sidebar">
                             <div class="widget-profile pro-widget-content">
                                 <div class="profile-info-widget">
-                                    <a href="#" class="booking-doc-img">
-                                        <img src="./img/patients/user.jpg" alt="User Image">
-                                    </a>
-                                    <div class="profile-det-info">
+                                <?php
+                                    if($user_data['gender']=="male"){
+                                       echo "<img src='./img/patients/160Hf.png   '' class='img-fluid' alt='User Image'>";
+                                    }else{
+                                        echo "<img src='./img/patients/user.jpg   '' class='img-fluid' alt='User Image'>";  
+                                    }
+                                    ?> <div class="profile-det-info">
                                         <h3><?php echo $user_data['username']?></h3>
                                         <div class="patient-details">
                                             <h5><i class="fas fa-birthday-cake"></i> <?php echo $user_data['dateofbirth']?></h5>
@@ -162,8 +166,13 @@
                                             <div class="form-group">
                                                 <div class="change-avatar">
                                                     <div class="profile-img">
-                                                        <img src="./img/patients/user.jpg" alt="User Image">
-                                                    </div>
+                                                    <?php
+                                    if($user_data['gender']=="male"){
+                                       echo "<img src='./img/patients/160Hf.png   '' class='img-fluid' alt='User Image'>";
+                                    }else{
+                                        echo "<img src='./img/patients/user.jpg   '' class='img-fluid' alt='User Image'>";  
+                                    }
+                                    ?></div>
                                                     
                                                 </div>
                                             </div>

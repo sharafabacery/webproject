@@ -1,5 +1,19 @@
 <?php require_once("./header_footer/header.php")?>
 <?php require_once('./header_footer/checkrorsessions.php')?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/Userclass.php")?>
+<?php
+    $db=new Database();
+    $user=new Users($db->connect());
+    $user->id=$_SESSION['id'];
+    $user_data=$user->show_profile();
+    if ($user_data==false) {
+       
+    }
+    
+    
+
+    ?>
 <body>
     <div class="main-wrapper">
     
@@ -78,12 +92,19 @@
                         <div class="doctor-widget">
                             <div class="doc-info-left">
                                 <div class="doctor-img">
-                                    <img src="./img/patients/user.jpg   " class="img-fluid" alt="User Image">
+                                    <?php
+                                    if($user_data['gender']=="male"){
+                                       echo "<img src='./img/patients/160Hf.png   '' class='img-fluid' alt='User Image'>";
+                                    }else{
+                                        echo "<img src='./img/patients/user.jpg   '' class='img-fluid' alt='User Image'>";  
+                                    }
+                                    ?>
+                                   
                                 </div>
                                 <div class="doc-info-cont">
-                                    <h4 class="doc-name">Salma Mahmoud </h4>
+                                    <h4 class="doc-name"><?php echo $user_data['username'];?> </h4>
                                         <div class="clinic-details">
-                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> Alexandria , Egypt  </p>
+                                        <p class="doc-location"><i class="fas fa-map-marker-alt"></i> <?php echo $user_data['Country_city'];?> </p>
                             
                           
                                 </div>
