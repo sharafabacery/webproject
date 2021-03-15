@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
             echo "login successfully";
             $_SESSION['username']=$check['username'];
             $_SESSION['id']=$check['id'];
+            $_SESSION['doctor']==false;
             header("Location: /webproject/finalproject");
         }else{
             echo "cant login _2"; 
