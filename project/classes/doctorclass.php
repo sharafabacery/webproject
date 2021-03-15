@@ -26,6 +26,7 @@ class Doctors{
   public $price;
   public $day;
   public $from_app;
+  public $shortdescription;
   public $to_app;
 
 
@@ -63,7 +64,7 @@ class Doctors{
 
   //can be used to complete doctor register and update his data
   public function complete_register_doctor(){
-    $update_query="update ".$this->users_tbl. " set  docname=?,email=?,password=?,city=?,phonenumber=?,speciallist=?,image=?,image_card=?,bio=?,area=?  where id=? ";  
+    $update_query="update ".$this->users_tbl. " set  shortdescription=?,docname=?,email=?,password=?,city=?,phonenumber=?,speciallist=?,image=?,image_card=?,bio=?,area=?  where id=? ";  
 
     $query_obj=$this->conn->prepare($update_query);
 
@@ -78,8 +79,9 @@ class Doctors{
     $this->image_card=htmlspecialchars(strip_tags($this->image_card));
     $this->bio=htmlspecialchars(strip_tags($this->bio));
     $this->area=htmlspecialchars(strip_tags($this->area));
+    $this->shortdescription=htmlspecialchars(strip_tags($this->shortdescription));
     
-    $query_obj->bind_param("ssssssssssi",$this->docname,$this->email,$this->password,$this->city,$this->phonenumber,$this->speciallist,$this->profile_img,$this->image_card,$this->bio,$this->area,$this->id);
+    $query_obj->bind_param("sssssssssssi",$this->shortdescription,$this->docname,$this->email,$this->password,$this->city,$this->phonenumber,$this->speciallist,$this->profile_img,$this->image_card,$this->bio,$this->area,$this->id);
     
     if ($query_obj->execute()&&$query_obj->affected_rows>0) {
         return true;
@@ -170,11 +172,11 @@ public function add_appotiment(){
   }
 }
 public function get_id_by_email(){
-  $user_query="select id from ".$this->users_tbl." where email=?";
+  $user_query="select * from ".$this->users_tbl." where email=?";
   $user_obj=$this->conn->prepare($user_query);
   $this->email=htmlspecialchars(strip_tags($this->email));
 
-  $user_obj->bind_param("s",$this->id);
+  $user_obj->bind_param("s",$this->email);
  
   if ($user_obj->execute()) {
       $data=$user_obj->get_result();
@@ -182,6 +184,7 @@ public function get_id_by_email(){
       return $data->fetch_assoc();
 
   }else{
+    print_r($user_obj);
       return false;
   }
 }
@@ -204,7 +207,7 @@ public function add_token(){
 
 }
 public function edit_password(){
-  $update_query="update ".$this->users_tbl ." set  password=?   where token=? and email=? ";
+  $update_query="update ".$this->users_tbl ." set  password=?,token=''   where token=? and email=? ";
 
   $query_obj=$this->conn->prepare($update_query);
 

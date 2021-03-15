@@ -1,6 +1,7 @@
 <?php require_once("./header_footer/header.php")?>
 <?php require_once("../project/config/database.php")?>
 <?php require_once("../project/classes/doctorclass.php")?>
+<?php require 'vendor/autoload.php'; use GuzzleHttp\Psr7\Request;?>
 <?php
 if($_SERVER['REQUEST_METHOD']=="POST"){
     //echo "ok";
@@ -9,24 +10,29 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
 
 
     $user->email=$_POST['Email'];
-    $user->password=$_POST['Password'];
-    $check=$user->login();
+    $check=$user->get_id_by_email();
     if($check){
         
-        if($check['password']==$user->password){
-            echo "login successfully";
-            $_SESSION['docname']=$check['docname'];
-            $_SESSION['id']=$check['id'];
-            $_SESSION['value']=0;
-            $_SESSION['doctor']==true;
-            header("Location: /webproject/finalproject/dash.php");
+        $phoneNumber=$check['phonenumber'];
+        $id=$check['id'];
+        $user->id=$id;
+        $user->token=$phoneNumber;
+        $check2=$user->add_token();
+        if($check2){
+            $client = new \GuzzleHttp\Client();
+
+        $wep='https://smsmisr.com/api/webapi/?username=FHV9ce5E&password=4OLWygYhxw&language=1&sender=Offers&mobile='.$phoneNumber.'&message='.'http://localhost/webproject/finalproject/forgetpassworddoc.php?token='.$phoneNumber;
+        $response = $client->request('POST', $wep);
+        if($response->getStatusCode()==200){
+            echo "token has ben sent to phone "; // 200
+        }
         }else{
-            echo "cant login _2"; 
+            echo "Error2";
         }
         
         
     }else{
-        echo "cant login";
+        echo "Error1";
     }
     
 }
@@ -89,28 +95,19 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                 </div>
                                 <div class="col-md-12 col-lg-6 login-right">
                                     <div class="login-header">
-                                        <h3>Login <span> Doctor</span></h3>
-                                        <a href="login.php"> <h3>Login <span>Patient</span></h3></a>
-                                       
+                                        <h3>send tpken to phone </h3>
                                     </div>
-                                    <form action="logindoctor.php" method="POST">
+                                    <form action="sendtokendoc.php" method="POST">
                                         <div class="form-group form-focus">
                                             <input type="email" class="form-control floating" name="Email">
                                             <label class="focus-label">Email </label>
                                         </div>
-                                        <div class="form-group form-focus">
-                                            <input type="password" class="form-control floating" name="Password">
-                                            <label class="focus-label">Password</label>
-                                        </div>
+                                       
                         
-                                        <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Login</button>
-                                        <div class="login-or">
-                                            <span class="or-line"></span>
-                                            <span class="span-or">or</span>
-                                        </div>
+                                        <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">send token</button>
+                                        
                                     
-                                        <div class="text-center dont-have ">Don’t have an account? <a  href="registerdoc.php">Register</a></div>
-                                        <div class="text-center dont-have ">forget password? <a  href="sendtokendoc.php">forget password??</a></div>
+      
                                     </form>
                                 </div>
                             </div>

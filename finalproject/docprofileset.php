@@ -26,6 +26,7 @@
         if(!isset($_POST['image']))$user->image_card="";
         else $user->image_card=$_POST['image_card'];
          $user->city=$_POST['city'];
+         $user->shortdescription=$_POST['shortdescription'];
         
         $user->bio=$_POST['bio'];
         $user->area=$_POST['area'];
@@ -265,6 +266,13 @@
 									<div class="form-group mb-0">
 										<label>speciallist</label>
 										<input class="form-control" type="text" value='<?php echo $user_data['speciallist']?>' name="speciallist"></input>
+									</div>
+								</div>
+                                <div class="card-body">
+									<h4 class="card-title">shortdescription</h4>
+									<div class="form-group mb-0">
+										<label>shortdescription</label>
+										<input class="form-control" type="text" value='<?php echo $user_data['shortdescription']?>' name="shortdescription"></input>
 									</div>
 								</div>
 							</div>
