@@ -151,6 +151,12 @@
                                             <span>clinic</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="addappotiment.php">
+                                            <i class="fas fa-user-cog"></i>
+                                            <span>addappotiment</span>
+                                        </a>
+                                    </li>
                                     <li class="active">
                                         <a href="doctor-change-password.html">
                                             <i class="fas fa-lock"></i>
