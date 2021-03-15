@@ -16,6 +16,7 @@ class Doctors{
   public $img_clinic;
   public $bio;
   public $id;
+  public $city;
   public $area;//city
   public $location_clinic;
   public $token;
@@ -62,15 +63,15 @@ class Doctors{
 
   //can be used to complete doctor register and update his data
   public function complete_register_doctor(){
-    $update_query="update ".$this->users_tbl. " docname=?,email=?,password=?,gender=?,phonenumber=?,speciallist=?,image=?,image_card=?,bio=?,area=? set where id=? ";  
+    $update_query="update ".$this->users_tbl. " set  docname=?,email=?,password=?,city=?,phonenumber=?,speciallist=?,image=?,image_card=?,bio=?,area=?  where id=? ";  
 
     $query_obj=$this->conn->prepare($update_query);
 
     $this->docname=htmlspecialchars(strip_tags($this->docname));
     $this->email=htmlspecialchars(strip_tags($this->email));
     $this->phonenumber=htmlspecialchars(strip_tags($this->phonenumber));
-    $this->password=htmlspecialchars(strip_tags($this->password));
-    $this->gender=htmlspecialchars(strip_tags($this->gender));
+   $this->password=htmlspecialchars(strip_tags($this->password));
+    $this->city=htmlspecialchars(strip_tags($this->city));
     $this->id=htmlspecialchars(strip_tags($this->id));
     $this->speciallist=htmlspecialchars(strip_tags($this->speciallist));
     $this->profile_img=htmlspecialchars(strip_tags($this->profile_img));
@@ -78,11 +79,12 @@ class Doctors{
     $this->bio=htmlspecialchars(strip_tags($this->bio));
     $this->area=htmlspecialchars(strip_tags($this->area));
     
-    $query_obj->bind_param("sssssssssssi",$this->docname,$this->email,$this->password,$this->gender,$this->phonenumber,$this->speciallist,$this->profile_img,$this->image_card,$this->bio,$this->area,$this->id);
+    $query_obj->bind_param("ssssssssssi",$this->docname,$this->email,$this->password,$this->city,$this->phonenumber,$this->speciallist,$this->profile_img,$this->image_card,$this->bio,$this->area,$this->id);
     
     if ($query_obj->execute()&&$query_obj->affected_rows>0) {
         return true;
     }else{
+      print_r($query_obj);
         return false;
     }
 
@@ -128,7 +130,7 @@ public function show_profile(){
 }
 
 public function add_clinic(){
-  $update_query="update ".$this->users_tbl. " name_of_clinic=?,img_clinic=?,location_clinic=?,offer=?,waiting_time=?,price=? set where id=? ";  
+  $update_query="update ".$this->users_tbl. " set name_of_clinic=?,img_clinic=?,location_clinic=?,offer=?,waiting_time=?,price=?  where id=? ";  
 
   $query_obj=$this->conn->prepare($update_query);
 
@@ -140,7 +142,7 @@ public function add_clinic(){
   $this->id=htmlspecialchars(strip_tags($this->id));
   $this->price=htmlspecialchars(strip_tags($this->price));
   
-  $query_obj->bind_param("sssiiii",$this->name_of_clinic,$this->image_card,$this->location_clinic,$this->offer,$this->waiting_time,$this->price,$this->id);
+  $query_obj->bind_param("sssdidi",$this->name_of_clinic,$this->img_clinic,$this->location_clinic,$this->offer,$this->waiting_time,$this->price,$this->id);
   
   if ($query_obj->execute()&&$query_obj->affected_rows>0) {
       return true;
@@ -150,7 +152,7 @@ public function add_clinic(){
 }
 //day			doc_id
 public function add_appotiment(){
-  $user_query="insert into appotiment (day,from_app,to_app,doc_id,) values( ?,?,?,?)";
+  $user_query="insert into appotiment (day,from_app,to_app,doc_id) values( ?,?,?,?)";
        
   $user_obj=$this->conn->prepare($user_query);
  

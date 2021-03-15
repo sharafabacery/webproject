@@ -57,6 +57,9 @@
                                 echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
                                     
                             }
+                        }else{
+                            echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                                
                         }
                         
                        

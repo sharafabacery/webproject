@@ -5,6 +5,7 @@ if ($_SERVER['REQUEST_METHOD']=="GET") {
    $_SESSION['id']="";
    $_SESSION['value']=-1;
    $_SESSION['docname']="";
+   $_SESSION['doctor']=false;
    header("Location: /webproject/finalproject/index.php");
 }
 ?>

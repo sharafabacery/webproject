@@ -16,24 +16,22 @@
 
         //echo "ok";
 
-        $user->docname=$_POST['docname'];
-        $user->email=$_POST['email'];
-        $user->password=$_POST['password'];
-        $user->phonenumber=$_POST['phonenumber'];
-        $user->speciallist=$_POST['speciallist'];
-        if(!isset($_POST['image']))$user->profile_img="";
-        else $user->profile_img=$_POST['image'];
-        if(!isset($_POST['image']))$user->image_card="";
-        else $user->image_card=$_POST['image_card'];
-         $user->city=$_POST['city'];
+        $user->name_of_clinic=$_POST['name_of_clinic'];
+        $user->location_clinic=$_POST['location_clinic'];
+        $user->offer=$_POST['offer'];
+        $user->price=$_POST['price'];
+        $user->waiting_time=$_POST['waiting_time'];
+        if(!isset($_POST['img_clinic']))$user->img_clinic="";
+        else $user->img_clinic=$_POST['img_clinic'];
+
         
-        $user->bio=$_POST['bio'];
-        $user->area=$_POST['area'];
+        
+  
        print_r($user);
-        $check=$user->complete_register_doctor();
+        $check=$user->add_clinic();
          if($check){
             
-            header("Location: /webproject/finalproject/docprofileset.php");
+            header("Location: /webproject/finalproject/clinic.php");
             
             
          }else{
@@ -193,7 +191,7 @@
                 <!-- /Profile Sidebar -->
                 
             </div>
-            <form action="docprofileset.php" method="post">
+            <form action="clinic.php" method="post">
             <div class="col-md-7 col-lg-8 col-xl-9">
 							<!-- Basic Information -->
 							<div class="card">
@@ -204,122 +202,70 @@
 											<div class="form-group">
 												<div class="change-avatar">
 													<div class="profile-img">
-														<img src='<?php echo $user_data['image']?>' alt="User Image">
+														<img src='<?php echo $user_data['img_clinic']?>' alt="User Image">
 													</div>
 													<div class="upload-img">
 														<div class="change-photo-btn">
 															<span><i class="fa fa-upload"></i> Upload Photo</span>
-															<input type="text" class="form-control" value='<?php echo $user_data['image']?>' name="image">
+															<input type="text" class="form-control" value='<?php echo $user_data['img_clinic']?>' name="img_clinic">
 												        </div>
-                                                        <div class="profile-img">
-														<img src='<?php echo $user_data['image_card']?>' alt="User Image">
-													</div>
-													<div class="upload-img">
-														<div class="change-photo-btn">
-															<span><i class="fa fa-upload"></i> Upload image_card</span>
-															<input type="text" class="form-control" value='<?php echo $user_data['image_card']?>' name="image_card">
-												        </div>
+                                                        
                                                         
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>Username <span class="text-danger">*</span></label>
-												<input type="text" class="form-control" value='<?php echo $user_data['docname']?>' name="docname">
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<label>Email <span class="text-danger">*</span></label>
-												<input type="email" class="form-control" value='<?php echo $user_data['email']?>' name="email">
+												<label>name_of_clinic <span class="text-danger">*</span></label>
+												<input type="text" class="form-control" value='<?php echo $user_data['name_of_clinic']?>' name="name_of_clinic">
 											</div>
 										</div>
                                         <div class="col-md-6">
 											<div class="form-group">
-												<label>phonenumber <span class="text-danger">*</span></label>
-												<input type="text" class="form-control" value='<?php echo $user_data['phonenumber']?>' name="phonenumber">
+												<label>waiting_time <span class="text-danger">*</span></label>
+												<input type="number" class="form-control" value='<?php echo $user_data['waiting_time']?>' name="waiting_time">
 											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="form-group">
-												<label>password<span class="text-danger">*</span></label>
-												<input type="text" class="form-control" value='<?php echo $user_data['password']?>' name="password">
+												<label>location_clinic <span class="text-danger">*</span></label>
+												<input type="text" class="form-control" value='<?php echo $user_data['location_clinic']?>' name="location_clinic">
 											</div>
 										</div>
+                                        
+										
 									</div>
 								</div>
 							</div>
 							<!-- /Basic Information -->
 							
 							<!-- About Me -->
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">About Me</h4>
-									<div class="form-group mb-0">
-										<label>Biography</label>
-										<textarea class="form-control" rows="5" value='' name="bio"><?php echo $user_data['bio']?></textarea>
-									</div>
-								</div>
-                                <div class="card-body">
-									<h4 class="card-title">speciallist</h4>
-									<div class="form-group mb-0">
-										<label>speciallist</label>
-										<input class="form-control" type="text" value='<?php echo $user_data['speciallist']?>' name="speciallist"></input>
-									</div>
-								</div>
-							</div>
+							
 
-            </form>
+           
             
-<div class="card contact-card">
-    <div class="card-body">
-        <h4 class="card-title">Contact Details</h4>
-        <div class="row form-row">
-            
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="control-label">City</label>
-                    <input type="text" class="form-control" value='<?php echo $user_data['city']?>' name="city">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="control-label">area</label>
-                    <input type="text" class="form-control" value='<?php echo $user_data['area']?>' name="area">
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</div>
+
 <!-- /Contact Details -->
 
 <!-- Pricing -->
-<!-- <div class="card">
+<div class="card">
     <div class="card-body">
         <h4 class="card-title">Pricing</h4>
         
         <div class="form-group mb-0">
             <div id="pricing_select">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="price_free" name="rating_option" class="custom-control-input" value="price_free" checked>
-                    <label class="custom-control-label" for="price_free">Free</label>
+                <div class="form-group">
+                    <input type="number "id="price_free" name="price" class="form-control" value='<?php echo $user_data['price']?>' >
+                    <label class="custom-control-label" for="price_free">price</label>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="price_custom" name="rating_option" value="custom_price" class="custom-control-input">
-                    <label class="custom-control-label" for="price_custom">Custom Price (per hour)</label>
-                </div>
+                <div class="form-group">
+                <input type="number "id="price_free" name="offer" class="form-control" value='<?php echo $user_data['offer']?>' >
+                    <label class="custom-control-label" for="price_free">offer</label>
+               </div>
             </div>
 
-        </div> -->
+        </div> 
         
-        <div class="row custom_price_cont" id="custom_price_cont" style="display: none;">
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="custom_rating_input" name="custom_rating_count" value="" placeholder="20">
-                <small class="form-text text-muted">Custom price you can add</small>
-            </div>
-        </div>
+        
         
     </div>
 </div>
@@ -328,6 +274,7 @@
 <div class="submit-section submit-btn-bottom">
     <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
 </div>
+</form>
                             </div>
             </div>
         </div>

@@ -1,4 +1,19 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once("./header_footer/checkrorsessionsdoc.php")?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/doctorclass.php")?>
+<?php
+    $db=new Database();
+    $user=new Doctors($db->connect());
+    $user->id=$_SESSION['id'];
+    $user_data=$user->show_profile();
+    if ($user_data==false) {
+       
+    }
+    
+    
+
+    ?>
 <body>
     
             <!-- Header -->
@@ -97,13 +112,13 @@
                         <div class="widget-profile pro-widget-content">
                             <div class="profile-info-widget">
                                 <a href="#" class="booking-doc-img">
-                                    <img src="./img/doctors/doctor-thumb-02.jpg" alt="User Image">
+                                    <img src='<?php echo $user_data['image'];?>' alt="User Image">
                                 </a>
                                 <div class="profile-det-info">
-                                    <h3>Dr. Ahmed Nagy </h3>
+                                    <h3><?php echo $user_data['docname'];?> </h3>
                                     
                                     <div class="patient-details">
-                                        <h5 class="mb-0">Maxillofacial Surgery</h5>
+                                        <h5 class="mb-0"><?php echo $user_data['speciallist'];?></h5>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +127,7 @@
                             <nav class="dashboard-menu">
                                 <ul>
                                     <li>
-                                        <a href="doctor-dashboard.html">
+                                        <a href="dash.php">
                                             <i class="fas fa-columns"></i>
                                             <span>Dashboard</span>
                                         </a>
@@ -125,9 +140,15 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="doctor-profile-settings.html">
+                                        <a href="docprofileset.php">
                                             <i class="fas fa-user-cog"></i>
                                             <span>Profile Settings</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="clinic.php">
+                                            <i class="fas fa-user-cog"></i>
+                                            <span>clinic</span>
                                         </a>
                                     </li>
                                     <li class="active">
@@ -137,7 +158,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="index.php">
+                                        <a href="logout.php">
                                             <i class="fas fa-sign-out-alt"></i>
                                             <span>Logout</span>
                                         </a>
