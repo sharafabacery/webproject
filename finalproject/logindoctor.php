@@ -1,11 +1,11 @@
 <?php require_once("./header_footer/header.php")?>
 <?php require_once("../project/config/database.php")?>
-<?php require_once("../project/classes/Userclass.php")?>
+<?php require_once("../project/classes/doctorclass.php")?>
 <?php
 if($_SERVER['REQUEST_METHOD']=="POST"){
     //echo "ok";
     $db=new Database();
-    $user=new Users($db->connect());
+    $user=new Doctors($db->connect());
 
 
     $user->email=$_POST['Email'];
@@ -15,10 +15,10 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         
         if($check['password']==$user->password){
             echo "login successfully";
-            $_SESSION['username']=$check['username'];
+            $_SESSION['docname']=$check['docname'];
             $_SESSION['id']=$check['id'];
-            $_SESSION['value']=1;
-            $_SESSION['doctor']==false;
+            $_SESSION['value']=0;
+            $_SESSION['doctor']==true;
             header("Location: /webproject/finalproject");
         }else{
             echo "cant login _2"; 
@@ -89,11 +89,11 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                 </div>
                                 <div class="col-md-12 col-lg-6 login-right">
                                     <div class="login-header">
-                                        <h3>Login <span>Patient</span></h3>
-                                        <a href="logindoctor.php"> <h3>Login <span>Doctor</span></h3></a>
+                                        <h3>Login <span> Doctor</span></h3>
+                                        <a href="login.php"> <h3>Login <span>Patient</span></h3></a>
                                        
                                     </div>
-                                    <form action="login.php" method="POST">
+                                    <form action="logindoctor.php" method="POST">
                                         <div class="form-group form-focus">
                                             <input type="email" class="form-control floating" name="Email">
                                             <label class="focus-label">Email </label>

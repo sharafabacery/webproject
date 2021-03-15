@@ -39,7 +39,7 @@ class Doctors{
   }
   
   public function register_doctor(){
-    $user_query="insert into ".$this->users_tbl." (docname,email,password,gender,phonenumber,speciallist) values(  ? ,  ?, ?,?,?,?,?)";
+    $user_query="insert into ".$this->users_tbl." (docname,email,password,gender,phonenumber,speciallist) values(   ?, ?,?,?,?,?)";
        
     $user_obj=$this->conn->prepare($user_query);
    
@@ -50,18 +50,19 @@ class Doctors{
      $this->phonenumber=htmlspecialchars(strip_tags($this->phonenumber));
     $this->speciallist=htmlspecialchars(strip_tags($this->speciallist));
    
-    $user_obj->bind_param("ssssss",$this->username,$this->email,$this->password,$this->gender,$this->phonenumber,$this->speciallist);
+    $user_obj->bind_param("ssssss",$this->docname,$this->email,$this->password,$this->gender,$this->phonenumber,$this->speciallist);
    
     if ($user_obj->execute()) {
         return true;
     }else{
+      print_r($user_obj);
         return false;
     }
   }
 
   //can be used to complete doctor register and update his data
   public function complete_register_doctor(){
-    $update_query="update ".$this->table_name. " docname=?,email=?,password=?,gender=?,phonenumber=?,speciallist=?,image=?,image_card=?,bio=?,area=? set where id=? ";  
+    $update_query="update ".$this->users_tbl. " docname=?,email=?,password=?,gender=?,phonenumber=?,speciallist=?,image=?,image_card=?,bio=?,area=? set where id=? ";  
 
     $query_obj=$this->conn->prepare($update_query);
 
@@ -102,12 +103,13 @@ class Doctors{
         return $data->fetch_assoc();
   
     }else{
+      print_r($user_obj);
         return false;
     }
 
 }
 public function show_profile(){
-  $get_user="select * from ".$this->table_name." where id=?";
+  $get_user="select * from ".$this->users_tbl." where id=?";
   $query_obj=$this->conn->prepare($get_user);
   $this->id=htmlspecialchars(strip_tags($this->id));
   $query_obj->bind_param("i",$this->id);
@@ -126,7 +128,7 @@ public function show_profile(){
 }
 
 public function add_clinic(){
-  $update_query="update ".$this->table_name. " name_of_clinic=?,img_clinic=?,location_clinic=?,offer=?,waiting_time=?,price=? set where id=? ";  
+  $update_query="update ".$this->users_tbl. " name_of_clinic=?,img_clinic=?,location_clinic=?,offer=?,waiting_time=?,price=? set where id=? ";  
 
   $query_obj=$this->conn->prepare($update_query);
 
@@ -182,7 +184,7 @@ public function get_id_by_email(){
   }
 }
 public function add_token(){
-  $update_query="update ".$this->table_name ." set  token=? where id=? ";
+  $update_query="update ".$this->users_tbl ." set  token=? where id=? ";
 
   $query_obj=$this->conn->prepare($update_query);
 
@@ -200,7 +202,7 @@ public function add_token(){
 
 }
 public function edit_password(){
-  $update_query="update ".$this->table_name ." set  password=?   where token=? and email=? ";
+  $update_query="update ".$this->users_tbl ." set  password=?   where token=? and email=? ";
 
   $query_obj=$this->conn->prepare($update_query);
 

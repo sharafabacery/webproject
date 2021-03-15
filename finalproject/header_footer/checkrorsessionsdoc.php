@@ -1,6 +1,6 @@
 <?php
-if(isset($_SESSION['username'])){
-    if ($_SESSION['username']==""||$_SESSION['doctor']==""||$_SESSION['doctor']==false) {
+if(isset($_SESSION['docname'])){
+    if ($_SESSION['docname']==""||$_SESSION['doctor']==""||$_SESSION['doctor']==false) {
         header("Location: /webproject/finalproject");
     }    
 }
