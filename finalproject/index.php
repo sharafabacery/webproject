@@ -56,12 +56,13 @@
                     </div>
                      
                     <div class="search-box">
-                        <form action="templateshub.net">
+                        <form action="search.php" method="POST">
                           
                             <div class="form-group search-spec">
 
-                                <select  class="form-control" placeholder="">
-                                    <option value="Prosthodontics">Prosthodontics </option>
+                                <select  class="form-control" placeholder="" name="Specialities">
+                                    
+                                    <option value="Prosthodontics" selected>Prosthodontics </option>
                                     <option value="Oral surgery">Oral surgery</option>
                                     <option value="Maxillofacial surgery">Maxillofacial surgery</option>
                                     <option value="Restorative dentistry">Restorative dentistry </option>
@@ -75,22 +76,25 @@
                             </div>
                             <div class="form-group search-location">
 
-                                <select  class="form-control" placeholder="">
-                                    <option value="saab">Alexandria </option>
-                                    <option value="opel">Cairo</option>
-                                    <option value="audi">Giza </option>
+                                <select  class="form-control" placeholder="" name="city">
+  
+                                    <option value="Alexandria" >Alexandria </option>
+                                    <option value="Cairo">Cairo</option>
+                                    <option value="Giza">Giza </option>
                                
                                 
                                 </select>
                                 <span class="form-text"> Choose City</span>
                             </div>
+                           
                             <div class="form-group search-location">
                                 <div class="form-group search-location">
 
-                                    <select  class="form-control" placeholder="">
-                                        <option value="saab">Sporting </option>
-                                        <option value="opel">Smouha</option>
-                                        <option value="audi">Louran </option>
+                                    <select  class="form-control" placeholder="" name="area">
+                                    
+                                        <option value="Sporting" >Sporting </option>
+                                        <option value="Smouha">Smouha</option>
+                                        <option value="Louran">Louran </option>
                                    
                                     
                                     </select>
@@ -98,13 +102,31 @@
                                 </div>
                             </div>
                             <div class="form-group search-doc">
-                                <input type="text" class="form-control search-doc" placeholder="Enter Dr Name ">
+                                <input type="text" class="form-control search-doc" placeholder="Enter Dr Name " name="name">
                                 <span class="form-text">Choose Dr Name</span>
                             </div>
                             
                             <button type="submit"  class="btn btn-primary search-btn"><a  style="color: white;"  href="./booking.html"><i class="fas fa-search"></i> <span>Search</span></button> </a>
                         </form>
+                     
+
                     </div>
+                    <div class="search-box">
+                     <form action="search.php" method="POST">
+                          
+                     <select  class="form-control" placeholder="search all doctor" name="searchall">
+                                        <option value="yes">yes </option>
+                                        <option value="No" selected>No</option>
+                                       
+                                    
+                                    </select>
+                                    <br>
+                          
+                        <button type="submit"  class="btn btn-primary search-btn"><a  style="color: white;"  href="./booking.php"><i class="fas fa-search"></i> <span>SearchAllDoctors</span></button> </a>
+                      </form>
+                      
+                      </div>
+                   
         
                     
                 </div>

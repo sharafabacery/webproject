@@ -78,12 +78,10 @@ class Users{
         $user_query="select * from doctor ";
         $user_obj=$this->conn->prepare($user_query);
 
-        $user_obj->bind_param("");
-       
         if ($user_obj->execute()) {
             $data=$user_obj->get_result();
             
-            return $data->fetch_assoc();
+            return $data;
       
         }else{
             return false;
@@ -110,15 +108,16 @@ class Users{
 
         }
         $user_query="select * from doctor where ".$keys_array;
+        //echo $user_query;
         $user_obj=$this->conn->prepare($user_query);
         $types = str_repeat('s', count($values)); //types
-
+        //print_r($values) ;
         $user_obj->bind_param($types,...$values);
        
         if ($user_obj->execute()) {
             $data=$user_obj->get_result();
             
-            return $data->fetch_assoc();
+            return $data;
       
         }else{
             return false;

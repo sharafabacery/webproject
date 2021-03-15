@@ -1,4 +1,40 @@
 <?php require_once("./header_footer/header.php")?>
+<?php require_once("../project/config/database.php")?>
+<?php require_once("../project/classes/Userclass.php")?>
+<?php
+if($_SERVER['REQUEST_METHOD']=="POST"){
+	$db=new Database();
+    $user=new Users($db->connect());
+    
+	if ($_POST['searchall']=='yes') {
+		$getalldoctors=$user->search_all();
+		
+	}else{
+		$combinations=[];
+		if(isset($_POST['city'])){
+			$combinations+=["city"=>$_POST['city']];
+		}
+		if(isset($_POST['area'])){
+			$combinations+=["area"=>$_POST['area']];
+		}
+		if(isset($_POST['name'])){
+			if($_POST['name']!="")
+			$combinations+=["docname"=>$_POST['name']];
+		}
+		if(isset($_POST['Specialities'])){
+			$combinations+=["speciallist"=>$_POST['Specialities']];
+		}
+		print_r($combinations);
+		$user->combine_array=$combinations;
+		$getalldoctors=$user->search_comination();
+		//print_r($yy);
+
+		
+	}
+   
+    
+}
+?>
 	<body>
 		<div class="main-wrapper">
 		
@@ -39,8 +75,17 @@
 						</li>
 					
 						<li class="nav-item">
-							<a class="nav-link header-login" href="login.html">login / Signup </a>
-						</li>
+						<?php
+                        if(isset($_SESSION['username'])){
+                            if($_SESSION['username']==""){
+                                echo " <a class='nav-link header-login' href='login.php'>login / Signup </a>";
+                            }else{
+                                echo " <a class='nav-link header-login' href='patientprofile.php'>".$_SESSION['username']. "</a>";
+                                echo " <a class='nav-link header-login' href='logout.php'>logout</a>";
+                            }
+                           
+                        }
+                        ?></li>
 					</ul>
 				</nav>
 			</header>
@@ -54,13 +99,13 @@
 									<li class="breadcrumb-item active" aria-current="page">Search</li>
 								</ol>
 							</nav>
-							<h2 class="breadcrumb-title">25 matches found for : Dentist In Alexandria</h2>
+							<h2 class="breadcrumb-title"><?php echo mysqli_num_rows($getalldoctors);?> matches found for : Dentist In all places</h2>
 				         </div>
 			        </div>
 			    </div>
 			</div>
 			<div class="content" style="display: inline-block;">
-				<div class="container-fluid">
+				<!---<div class="container-fluid">
 
 					<div class="row">
 						<div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
@@ -145,203 +190,56 @@
 								</div>	
 							</div>
 						</div>
-							<!-- /Search Filter -->
 							
-						</div>
+							
+						</div>-->
 						
 						<div class="col-md-12 col-lg-8 col-xl-9">
-
-							<!-- Doctor Widget -->
-							<div class="card">
-								<div class="card-body">
-									<div class="doctor-widget">
-										<div class="doc-info-left">
-											<div class="doctor-img">
-												<a href="doctor-profile.html">
-													<img src="./img/doctors/doctor-01.jpg" class="img-fluid" alt="User Image">
-												</a>
-											</div>
-											<div class="doc-info-cont">
-												<h4 class="doc-name"><a href="doctor-profile.html">Dr. Ruby Perrin</a></h4>
-												<h5 class="doc-department">Prosthodontics</h5>
-												<div class="clinic-details">
+						<?php
+						if($getalldoctors){
+						while ($data = $getalldoctors->fetch_assoc()) {
+							echo "<div class='card'>";
+								echo "<div class='card-body'>";
+									echo "<div class='doctor-widget'>";
+										echo "<div class='doc-info-left'>";
+											echo"<div class='doctor-img'>";
+												echo"<a href='doctor-profile.php'>";
+													echo "<img src=".$data['image']." class='img-fluid' alt='User Image'>";
+												echo"</a>";
+											echo"</div>";
+											echo "<div class='doc-info-cont'>";
+											echo	"<h4 class='doc-name'><a href='doctor-profile.php'>".$data['docname']."</a></h4>";
+												"<h5 class='doc-department'>".$data['speciallist']."</h5>";
+												echo"<div class='clinic-details'>";
 												
-												</div>
-												<div class="clinic-services">
-													<span>Dental Fillings</span>
-													<span> Whitneing</span>
-												</div>
-											</div>
-										</div>
-										<div class="doc-info-right">
-											<div class="clini-infos">
-												<ul>
-													<li><i class="far fa-money-bill-alt"></i> 100 LE <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
-												</ul>
-											</div>
-											<div class="clinic-booking">
-												<a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
-												<a class="apt-btn" href="booking.html">Book Appointment</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Doctor Widget -->
-
-							<!-- Doctor Widget -->
-							<div class="card">
-								<div class="card-body">
-									<div class="doctor-widget">
-										<div class="doc-info-left">
-											<div class="doctor-img">
-												<a href="doctor-profile.html">
-													<img src="./img/doctors/doctor-thumb-03.jpg" class="img-fluid" alt="User Image">
-												</a>
-											</div>
-											<div class="doc-info-cont">
-											<h4 class="doc-name"><a href="doctor-profile.html">Dr. Darren Elder</a></h4>
-												<h5 class="doc-department" class="img-fluid" alt="Speciality">Oral Surgery</h5>
-												<div class="clinic-details">
-
-												</div>
-												<div class="clinic-services">
-													<span>Dental Fillings</span>
-													<span> Whitneing</span>
-												</div>
-											</div>
-										</div>
-										<br>
-										<div class="doc-info-right">
-											<div class="clini-infos">
-												<ul>
-													<li><i class="far fa-money-bill-alt"></i> 100 LE <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
-												</ul>
-											</div>
-											
-											<div class="clinic-booking">
-												<a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
-												<a class="apt-btn" href="booking.html">Book Appointment</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-		
-							<div class="card">
-								<div class="card-body">
-									<div class="doctor-widget">
-										<div class="doc-info-left">
-											<div class="doctor-img">
-												<a href="doctor-profile.html">
-													<img src="./img/doctors/doctor-thumb-04.jpg" class="img-fluid" alt="User Image">
-												</a>
-											</div>
-											<div class="doc-info-cont">
-												<h4 class="doc-name"><a href="doctor-profile.html">Dr. Deborah Angel</a></h4>
-												<p class="doc-department">Pedodontics</p>
-												<div class="clinic-details">
+												echo"</div>";
+												echo"<div class='clinic-services'>";
+													echo"<span>".$data['shortdescription']."</span>";
 													
-												</div>
-												<div class="clinic-services">
-													<span>Dental Fillings</span>
-													<span> Whitneing</span>
-												</div>
-											</div>
-										</div>
-										<div class="doc-info-right">
-											<div class="clini-infos">
-												<ul>
-													<li><i class="far fa-money-bill-alt"></i> 100 LE <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
-												</ul>
-											</div>
-											<div class="clinic-booking">
-												<a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
-												<a class="apt-btn" href="booking.html">Book Appointment</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-		
-							<div class="card">
-								<div class="card-body">
-									<div class="doctor-widget">
-										<div class="doc-info-left">
-											<div class="doctor-img">
-												<a href="doctor-profile.html">
-													<img src="./img/doctors/doctor-thumb-08.jpg" class="img-fluid" alt="User Image">
-												</a>
-											</div>
-											<div class="doc-info-cont">
-
-												<h4 class="doc-name"><a href="doctor-profile.html">Dr. Mohamed Ali</a></h4>
-												<p class="doc-department">Endodontic</p>
-												<div class="clinic-details">
-											
-												</div>
-												<div class="clinic-services">
-													<span>Dental Fillings</span>
-													<span> Whitneing</span>
-												</div>
-											</div>
-										</div>
-										<div class="doc-info-right">
-
-											<div class="clini-infos">
-												<ul>
-													<li><i class="far fa-money-bill-alt"></i> 100 LE <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
-												</ul>
-											</div>
-											
-											<div class="clinic-booking">
-												<a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
-												<a class="apt-btn" href="booking.html">Book Appointment</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+												echo"</div>";
+											echo"</div>";
+										echo"</div>";
+										echo"<div class='doc-info-right'>";
+											echo"<div class='clini-infos'>";
+												echo"<ul>";
+													echo "<li><i class='far fa-money-bill-alt'></i> ".$data['price'] ."LE <i class='fas fa-info-circle' data-toggle='tooltip' title='Lorem Ipsum'></i> </li>";
+													echo "<li><i class='far fa-money-bill-alt'></i> ".$data['offer']*100 ."% offer LE <i class='fas fa-info-circle' data-toggle='tooltip' title='Lorem Ipsum'></i> </li>";
+												echo"</ul>";
+											echo"</div>";
+											echo"<div class='clinic-booking'>";
+												echo"<a class='view-pro-btn' href='doctor-profile.php'>View Profile</a>";
+												echo"<a class='apt-btn' href='booking.php'>Book Appointment</a>";
+											echo"</div>";
+										echo"</div>";
+									echo"</div>";
+								echo"</div>";
+							echo"</div>";
+						}}
 						
-							<div class="card">
-								<div class="card-body">
-									<div class="doctor-widget">
-										<div class="doc-info-left">
-											<div class="doctor-img">
-												<a href="doctor-profile.html">
-													<img src="./img/doctors/doctor-thumb-07.jpg" class="img-fluid" alt="User Image">
-												</a>
-											</div>
-											<div class="doc-info-cont">
-												<h4 class="doc-name"><a href="doctor-profile.html">Dr. Katharine Berthold</a></h4>
-												<p class="doc-department">Orthodontics</p>
-												<div class="clinic-details">
-												
-												</div>
-												<div class="clinic-services">
-													<span>Dental Fillings</span>
-													<span> Whitneing</span>
-												</div>
-											</div>
-										</div>
-										<div class="doc-info-right">
-
-											<div class="clini-infos">
-												<ul>
-													<li><i class="far fa-money-bill-alt"></i> 100 LE <i class="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum"></i> </li>
-												</ul>
-											</div>
-											
-											<div class="clinic-booking">
-												<a class="view-pro-btn" href="doctor-profile.html">View Profile</a>
-												<a class="apt-btn" href="booking.html">Book Appointment</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-	
-						</div>
+						?>
+							<!-- Doctor Widget -->
+							
+							<!-- /Doctor Widget -->
 					</div>
 
 				</div>
