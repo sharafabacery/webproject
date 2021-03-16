@@ -126,7 +126,7 @@
                                  echo "<h3>description</h3>";
                                  echo "<p>". $user_med['description']."</p>"; 
                                  echo"<h3>Link of Model</h3>";
-                                 echo"<a href=''>Model</a>";  
+                                 echo"<a href=".$user_med['link_model'].">Model</a>";  
 
                             echo"</div>";
                             }?>

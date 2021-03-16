@@ -14,7 +14,7 @@
         $med1->title=$_POST['title'];
         $med1->description=$_POST['description'];
         if($_POST['radio']=="added")
-        $med1->link_model='addedModel';
+        $med1->link_model='http://localhost/webproject/teeth/';
         else{
             $med1->link_model='notadd';  
         }
@@ -167,7 +167,7 @@
                                  echo "<h3>description</h3>";
                                  echo "<p>". $user_med['description']."</p>"; 
                                  echo"<h3>Link of Model</h3>";
-                                 echo"<a href=''>Model</a>";  
+                                 echo"<a href=".$user_med['link_model'].">Model</a>";  
 
                             echo"</div>";
                             }?>
