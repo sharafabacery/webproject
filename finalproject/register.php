@@ -122,8 +122,8 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                         </div>
                                         <div class="form-group form-focus">
                                         
-                                            &nbsp;	<input type="radio" name="radio" > Male  &nbsp;&nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;
-                                            <input type="radio"  name="radio"> Female
+                                            &nbsp;	<input type="radio" name="radio" value="male"> Male  &nbsp;&nbsp;  &nbsp;  &nbsp;&nbsp;  &nbsp;
+                                            <input type="radio"  name="radio" value="female"> Female
                                         </div>	
                                         <div class="text-right">
                                             <a class="forgot-link" href="login.php">Already have an account?</a>

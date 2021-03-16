@@ -224,6 +224,22 @@ public function get_one_reservation(){
       return false;
   }
 }
+public function get_all_reservation_doctor(){
+  $query="select * from reservation inner join user on reservation.user_id=user.id inner join appotiment on appotiment.id=reservation.appotiment_id  and reservation.doc_id=? ORDER BY time ASC";
+  $prebind=$this->conn->prepare($query);
+  $this->id=htmlspecialchars(strip_tags($this->id));
+ 
+  $prebind->bind_param("i",$this->id);
+  if ($prebind->execute()) {
+    $data=$prebind->get_result();
+    
+    return $data;
+
+  }else{
+      return false;
+  }
+ 
+}
 public function get_id_by_email(){
   $user_query="select * from ".$this->users_tbl." where email=?";
   $user_obj=$this->conn->prepare($user_query);

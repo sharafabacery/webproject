@@ -9,6 +9,10 @@
     $user_data=$user->show_profile();
     if ($user_data==false) {
        
+    }else{
+        $user->id=$_SESSION['id'];
+        $patient=$user->get_all_reservation_doctor();
+        
     }
     
     
@@ -134,7 +138,7 @@
                                     </li>
                                     <li>
                                     <li>
-                                        <a href="schedule-timings.html">
+                                        <a href="">
                                             <i class="fas fa-hourglass-start"></i>
                                             <span>Schedule Timings</span>
                                         </a>
@@ -158,7 +162,7 @@
                                         </a>
                                     </li>
                                     <li class="active">
-                                        <a href="doctor-change-password.html">
+                                        <a href="">
                                             <i class="fas fa-lock"></i>
                                             <span>Change Password</span>
                                         </a>
@@ -192,41 +196,15 @@
                                                 </div>
                                                 <div class="dash-widget-info">
                                                     <h6>Total Patient</h6>
-                                                    <h3>1500</h3>
-                                                    <p class="text-muted">Till Today</p>
+                                                    <h3><?php echo mysqli_num_rows($patient);?></h3>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
                                         
-                                        <div class="col-md-12 col-lg-4">
-                                            <div class="dash-widget dct-border-rht">
-                                                <div class="circle-bar circle-bar2">
-                                                    <div class="circle-graph2" data-percent="65">
-                                                        <img src="./img/icon-02.png" class="img-fluid" alt="Patient">
-                                                    </div>
-                                                </div>
-                                                <div class="dash-widget-info">
-                                                    <h6>Today Patient</h6>
-                                                    <h3>160</h3>
-                                                    <p class="text-muted">06, Nov 2020</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                     
                                         
-                                        <div class="col-md-12 col-lg-4">
-                                            <div class="dash-widget">
-                                                <div class="circle-bar circle-bar3">
-                                                    <div class="circle-graph3" data-percent="50">
-                                                        <img src="./img/icon-03.png" class="img-fluid" alt="Patient">
-                                                    </div>
-                                                </div>
-                                                <div class="dash-widget-info">
-                                                    <h6>Appoinments</h6>
-                                                    <h3>85</h3>
-                                                    <p class="text-muted">06, Apr 2020</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +219,7 @@
                                 <!-- Appointment Tab -->
                                 <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#upcoming-appointments" data-toggle="tab">Upcoming</a>
+                                        <a class="nav-link active" href="#upcoming-appointments" data-toggle="tab">my patients</a>
                                     </li>
                                 </ul>
                                 <!-- /Appointment Tab -->
@@ -257,109 +235,49 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Patient Name</th>
-                                                                <th>Appt Date</th>
-                                                                <th>Purpose</th>
-                                                                <th>Type</th>
-                                                                <th class="text-center">Paid Amount</th>
+                                                                <th>dateofbirth</th>
+                                                                <th>phonenumber</th>
+                                                                <th>Blood_Group</th>
+                                                                <th>day/time</th>
+                                                                
                                                                 <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Gerges Hany <span>#PT0016</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>11 Nov 2020 <span class="d-block text-info">10.00 AM</span></td>
-                                                                <td>General</td>
-                                                                <td>New Patient</td>
-                                                                <td class="text-center">150LE</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient1.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Rolan Atef <span>#PT0001</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>3 Nov 2020 <span class="d-block text-info">11.00 AM</span></td>
-                                                                <td>General</td>
-                                                                <td>Old Patient</td>
-                                                                <td class="text-center">200LE</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient2.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Mahmoud Samy  <span>#PT0002</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>1 Nov 2020 <span class="d-block text-info">1.00 PM</span></td>
-                                                                <td>General</td>
-                                                                <td>New Patient</td>
-                                                                <td class="text-center">75LE</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient3.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Kiro gerges <span>#PT0003</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>30 Oct 2020 <span class="d-block text-info">9.00 AM</span></td>
-                                                                <td>General</td>
-                                                                <td>Old Patient</td>
-                                                                <td class="text-center">100LE</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/user.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Salma Mahmoud <span>#PT0004</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>28 Oct 2020 <span class="d-block text-info">6.00 PM</span></td>
-                                                                <td>General</td>
-                                                                <td>New Patient</td>
-                                                                <td class="text-center">350LE</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                        <?php
+                                                        while($data=$patient->fetch_assoc()){
+                                                            echo"<tr>";
+                                                            echo    "<td>";
+                                                             echo       "<h2 class='table-avatar'>";
+                                                             $link="patient-profile.php?user_id=".$data["user_id"];
+
+
+                                                             echo           "<a href=".$link." class='avatar avatar-sm mr-2'><img class='avatar-img rounded-circle'src='./img/patients/160Hf.png' alt='User Image'></a>";
+                                                                echo        "<a href=".$link.">".$data['username']."</a>";
+                                                                    echo "</h2>";
+                                                                echo"</td>";
+                                                                echo"<td> ".$data['dateofbirth']."  </td>";
+                                                                echo "  <td>".$data['phonenumber']."</td>";
+                                                                echo "   <td>".$data['Blood_Group']."</</td>";
+                                                                echo "  <td>".$data['time']."</span></td>";
+                                                                echo "  <td class='text-right'>";
+                                                                echo "    <div class='table-action'>";
+                                                                    echo "     <a href='javascript:void(0);' class='btn btn-sm bg-info-light'>";
+                                                                        echo "<i class='far fa-eye'></i> View";
+                                                                            echo  "</a>";
+                                                                        echo "  </div>";
+                                                                    echo "  </td>";
+                                                            echo "</tr>";
+                                                        }
+                                                            
+                                                        
+                                                        
+                                                        ?>
+                                   
+                                                            
+                                                            
+                                                            
+                                                            
                                                             
                                                         </tbody>
                                                     </table>		
@@ -412,136 +330,10 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient7.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Joan Gardner <span>#PT0006</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>14 Nov 2019 <span class="d-block text-info">5.00 PM</span></td>
-                                                                <td>General</td>
-                                                                <td>Old Patient</td>
-                                                                <td class="text-center">$100</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                        
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                            <i class="fas fa-check"></i> Accept
-                                                                        </a>
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                            <i class="fas fa-times"></i> Cancel
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient8.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Daniel Griffing <span>#PT0007</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>14 Nov 2019 <span class="d-block text-info">3.00 PM</span></td>
-                                                                <td>General</td>
-                                                                <td>New Patient</td>
-                                                                <td class="text-center">$75</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                        
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                            <i class="fas fa-check"></i> Accept
-                                                                        </a>
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                            <i class="fas fa-times"></i> Cancel
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient9.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Walter Roberson <span>#PT0008</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>14 Nov 2019 <span class="d-block text-info">1.00 PM</span></td>
-                                                                <td>General</td>
-                                                                <td>Old Patient</td>
-                                                                <td class="text-center">$350</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                        
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                            <i class="fas fa-check"></i> Accept
-                                                                        </a>
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                            <i class="fas fa-times"></i> Cancel
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient10.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Robert Rhodes <span>#PT0010</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>14 Nov 2019 <span class="d-block text-info">10.00 AM</span></td>
-                                                                <td>General</td>
-                                                                <td>New Patient</td>
-                                                                <td class="text-center">$175</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                        
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                            <i class="fas fa-check"></i> Accept
-                                                                        </a>
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                            <i class="fas fa-times"></i> Cancel
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <h2 class="table-avatar">
-                                                                        <a href="patient-profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="./img/patients/patient11.jpg" alt="User Image"></a>
-                                                                        <a href="patient-profile.html">Harry Williams <span>#PT0011</span></a>
-                                                                    </h2>
-                                                                </td>
-                                                                <td>14 Nov 2019 <span class="d-block text-info">11.00 AM</span></td>
-                                                                <td>General</td>
-                                                                <td>New Patient</td>
-                                                                <td class="text-center">$450</td>
-                                                                <td class="text-right">
-                                                                    <div class="table-action">
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-                                                                            <i class="far fa-eye"></i> View
-                                                                        </a>
-                                                                        
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-                                                                            <i class="fas fa-check"></i> Accept
-                                                                        </a>
-                                                                        <a href="javascript:void(0);" class="btn btn-sm bg-danger-light">
-                                                                            <i class="fas fa-times"></i> Cancel
-                                                                        </a>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                           
+                                                    
+                                                           
+                                                            
                                                         </tbody>
                                                     </table>		
                                                 </div>	
