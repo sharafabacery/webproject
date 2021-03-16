@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2021 at 02:56 PM
+-- Generation Time: Mar 16, 2021 at 04:18 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.7
 
@@ -114,6 +114,14 @@ CREATE TABLE `medicalhistory` (
   `date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `medicalhistory`
+--
+
+INSERT INTO `medicalhistory` (`user_id`, `doc_id`, `title`, `description`, `link_model`, `med_id`, `date`) VALUES
+(2, 3, 'Meshmesh and the Lost Tuna!d', 'Meshmesh and the Lost Tuna!', 'http://localhost/webproject/teeth/', 1, '2021-03-16'),
+(2, 3, 'Meshmesh and the Lost Tuna!2', 'Meshmesh and the Lost Tuna!2', 'http://localhost/webproject/teeth/', 2, '2021-03-16');
+
 -- --------------------------------------------------------
 
 --
@@ -124,9 +132,19 @@ CREATE TABLE `reservation` (
   `user_id` int(11) NOT NULL,
   `doc_id` int(11) NOT NULL,
   `appotiment_id` int(11) NOT NULL,
-  `payment_method` int(11) NOT NULL,
-  `price` int(11) NOT NULL
+  `payment_method` text NOT NULL,
+  `price` int(11) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`user_id`, `doc_id`, `appotiment_id`, `payment_method`, `price`, `time`) VALUES
+(2, 3, 1, '0', 0, '2021-03-15 23:26:01'),
+(1, 3, 1, '0', 0, '2021-03-15 23:26:01'),
+(3, 3, 1, '0', 0, '2021-03-15 23:26:01');
 
 -- --------------------------------------------------------
 
@@ -154,7 +172,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `email`, `password`, `gender`, `dateofbirth`, `type`, `token`, `phonenumber`, `Country_city`, `Blood_Group`) VALUES
 (1, 'sharaf1235', 'abacerysharaf@gmail.com', '123456789', 'male', '2000-9-10', 'patient', '', '01018184170', 'Alexandria', 'A+'),
-(2, 'aya ehab', 'ayaEhab@gmail.com', '123456789', 'on', '2000-03-07', 'patient', '', '01018184170', '', '0');
+(2, 'aya ehab', 'ayaEhab@gmail.com', '123456789', 'on', '2000-03-07', 'patient', '', '01018184170', 'Alexandria', 'A+'),
+(3, 'aya ehab1234', 'ayaEhab123@gmail.com', '123456789', 'on', '2013-02-12', 'patient', '', '01018184170', '', '');
 
 --
 -- Indexes for dumped tables
@@ -228,13 +247,13 @@ ALTER TABLE `doctor`
 -- AUTO_INCREMENT for table `medicalhistory`
 --
 ALTER TABLE `medicalhistory`
-  MODIFY `med_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
