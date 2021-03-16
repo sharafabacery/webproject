@@ -2,6 +2,7 @@
 <?php require_once('./header_footer/checkrorsessions.php')?>
 <?php require_once("../project/config/database.php")?>
 <?php require_once("../project/classes/Userclass.php")?>
+<?php require_once("../project/classes/MedicalHisory.php")?>
 <?php
     $db=new Database();
     $user=new Users($db->connect());
@@ -10,7 +11,16 @@
     if ($user_data==false) {
        
     }
-    
+    $med_history=new MedicalHistory($db->connect());
+    $med_history->user_id=$_SESSION['id'];
+    $patient=$med_history->view_all_medical_history();
+    if(isset($_GET['view'])){
+        $db=new Database();
+        $med2=new MedicalHistory($db->connect());
+        $med2->med_id=$_GET['view'];
+        $user_med=$med2->show_medical_History();
+        
+    }
     
 
     ?>
@@ -109,6 +119,17 @@
                           
                                 </div>
                             </div>
+                            <?php if(isset($_GET['view'])){
+                           echo "<div>";
+                                echo "<h3>title</h3>";
+                                 echo "<p>". $user_med['title']."</p>";   
+                                 echo "<h3>description</h3>";
+                                 echo "<p>". $user_med['description']."</p>"; 
+                                 echo"<h3>Link of Model</h3>";
+                                 echo"<a href=''>Model</a>";  
+
+                            echo"</div>";
+                            }?>
                             <div class="doc-info-right">
                       
                                 <div class="doctor-action">
@@ -139,9 +160,52 @@
                                 <div class="row">
                                     <div class="col-md-12 col-lg-9">
                                         <div class="widget about-widget">
-                                            <h4 class="widget-title">About Me</h4>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <h4 class="widget-title">Medical history</h4>
+                                            <div class="tab-pane show active" id="upcoming-appointments">
+                                        <div class="card card-table mb-0">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-center mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>title</th>
+                                                                <th>date</th>
+                                                                <th>edit</th>
+                                                                <th>view</th>
+                                                                
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           
+                                                        <?php
+                                                        while($data=$patient->fetch_assoc()){
+         
+                                                                echo"<td> ".$data['title']."  </td>";
+                                                                echo "  <td>".$data['date']."</td>";
+                                                                
+                                                                echo "  <td>".$data['date']."</td>";
+                                                                $link="http://localhost/webproject/finalproject/patientprofile.php"."?view=".$data['med_id'];
+                                                                echo "  <td> <a href='$link'>view</a></td>";
+                                                               
+                                                            echo "</tr>";
+                                                        }
+                                                            
+                                                        
+                                                        
+                                                        ?>
+                                   
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                        </tbody>
+                                                    </table>		
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div></div>
                              
 
                                     </div>
