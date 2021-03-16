@@ -39,7 +39,7 @@ class MedicalHistory{
       }
       public function update_midicalHistory(){
 
-        $update_query="update ".$this->users_tbl ." set  title=? ,description=?  where user_id=?,doc_id=? ";
+        $update_query="update ".$this->users_tbl ." set  title=? ,description=?  where user_id=? and doc_id=? and med_id=? ";
 
         $query_obj=$this->conn->prepare($update_query);
 
@@ -47,9 +47,10 @@ class MedicalHistory{
         $this->description=htmlspecialchars(strip_tags($this->description));
         $this->doc_id=htmlspecialchars(strip_tags($this->doc_id));
         $this->user_id=htmlspecialchars(strip_tags($this->user_id));
+        $this->med_id=htmlspecialchars(strip_tags($this->med_id));
 
 
-        $query_obj->bind_param("ssii",$this->title,$this->description,$this->user_id,$this->doc_id);
+        $query_obj->bind_param("ssiii",$this->title,$this->description,$this->user_id,$this->doc_id,$this->med_id);
         
         if ($query_obj->execute()&&$query_obj->affected_rows>0) {
             return true;

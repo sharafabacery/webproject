@@ -13,13 +13,9 @@
         $med1->doc_id=$_SESSION['id'];
         $med1->title=$_POST['title'];
         $med1->description=$_POST['description'];
-        if($_POST['radio']=="added")
-        $med1->link_model='http://localhost/webproject/teeth/';
-        else{
-            $med1->link_model='notadd';  
-        }
-       print_r($_POST);
-       if($med1->add_medical_History()){
+        $med1->med_id=$_GET['view'];
+        
+       if($med1->update_midicalHistory()){
            $link="http://localhost/webproject/finalproject/patient-profile.php?user_id=".$_GET['user_id'];
            header('Location:'. $link);
        }
@@ -173,33 +169,24 @@
                             }?>
                             
                             <div class="doc-info-right">
-                                    <form action="patient-profile.php?user_id=<?php echo $_GET['user_id'];?>" method="POST">
+                                    <form action="patient-profile-update.php?user_id=<?php echo $_GET['user_id'];?>&view=<?php echo $_GET['view'];?>" method="POST">
                                     <div class="card-body">
 									<h4 class="card-title">title</h4>
 									<div class="form-group mb-0">
                                     <label>title</label>
-										<input class="form-control" type="text"  name="title"></input>
+										<input class="form-control" type="text"  name="title" value="<?php echo  $user_med['title']?>">
+                                    
+                                    </input>
 									</div>
                                     <div class="card-body">
 									<h4 class="card-title">description</h4>
 									<div class="form-group mb-0">
 										<label>description and med</label>
-										<textarea class="form-control" rows="5"  name="description"></textarea>
+										<textarea class="form-control" rows="5"  name="description"><?php echo $user_med['description'];?></textarea>
 									</div>
 								</div>
-                                <div class="form-group mb-0">
-                                <label class="payment-radio credit-card-option">
-													<input type="radio" name="radio" value="added">
-													<span class="checkmark"></span>
-													add Model
-												</label>
-                                                <label class="payment-radio credit-card-option">
-													<input type="radio" name="radio" value="notadded">
-													<span class="checkmark"></span>
-													not add Model
-												</label>
-                                            </div>
-                                            <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">add medical history</button>
+                                
+                                            <button class="btn btn-primary btn-block btn-lg login-btn" type="submit">update medical history</button>
                                     </form>
                                 <div class="doctor-action">
                                
@@ -223,77 +210,7 @@
                             </ul>
                         </nav>
                    
-                        <div class="tab-content pt-0">
                         
-                            <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-9">
-                                        <div class="widget about-widget">
-                                            <h4 class="widget-title">Medical history</h4>
-                                            <div class="tab-pane show active" id="upcoming-appointments">
-                                        <div class="card card-table mb-0">
-                                            <div class="card-body">
-                                                <div class="table-responsive">
-                                                    <table class="table table-hover table-center mb-0">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>title</th>
-                                                                <th>date</th>
-                                                                <th>edit</th>
-                                                                <th>view</th>
-                                                                
-                                                                <th></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                           
-                                                        <?php
-                                                        while($data=$patient->fetch_assoc()){
-         
-                                                                echo"<td> ".$data['title']."  </td>";
-                                                                echo "  <td>".$data['date']."</td>";
-                                                                $link2="http://localhost/webproject/finalproject/patient-profile-update.php?user_id=".$_GET['user_id']."&view=".$data['med_id'];
-                                                               
-                                                                echo "  <td> <a href='$link2'>edit</a></td>";
-                                                                $link="http://localhost/webproject/finalproject/patient-profile.php?user_id=".$_GET['user_id']."&view=".$data['med_id'];
-                                                                echo "  <td> <a href='$link'>view</a></td>";
-                                                               
-                                                            echo "</tr>";
-                                                        }
-                                                            
-                                                        
-                                                        
-                                                        ?>
-                                   
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                        </tbody>
-                                                    </table>		
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                            <p></p>
-                                        </div>
-                             
-
-                                    </div>
-                                </div>
-                            </div>
-                    
-                                
-                                    </div>
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                </div>
-                
             </div>
         </div>	
         
