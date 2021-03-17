@@ -136,10 +136,10 @@
                     </div>
                     <div class="search-box">
                      <form action="search.php" method="POST">
-                          
-                     <select  class="form-control" placeholder="search all doctor" name="searchall">
-                                        <option value="yes">yes </option>
-                                        <option value="No" selected>No</option>
+                     <h2>if you need to search for all doctor male this select to yes and hit search,if not make it no and use </h2>
+                       <select  class="form-control" placeholder="search all doctor" name="searchall">
+                                        <option value="yes" selected>yes </option>
+                                        <option value="No" >No</option>
                                        
                                     
                                     </select>
